@@ -1,0 +1,211 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{amsmath}
+
+
+\usepackage[hmargin=3cm,vmargin=6.0cm]{geometry}
+%\topmargin=0cm
+\topmargin=-2cm
+\addtolength{\textheight}{6.5cm}
+\addtolength{\textwidth}{2.0cm}
+%\setlength{\leftmargin}{-5cm}
+\setlength{\oddsidemargin}{0.0cm}
+\setlength{\evensidemargin}{0.0cm}
+
+
+
+\begin{document}
+
+\section*{Student Information } 
+%Write your full name and id number between the colon and newline
+%Put one empty space character after colon and before newline
+Full Name : Furkan Göksel \\
+Id Number :  2237436 \\
+
+% Write your answers below the section tags
+\section*{Answer 1}
+\subsection*{1.1)}
+Since it is a nonhomogeneous recurrence relation, first we determine homogenous solution, then particular solution. To find homogenous solution:
+\begin{equation} 
+\begin{split} 
+    a_n = a_{n-1} \\
+    r=1
+\end{split}
+\end{equation} \\ 
+Since it is characteristic root is 1 then we can say that $a_n^{(h)} = C1^n$.Then particular solution is by theorem (on text book pg. 523) $a^{(p)}_n=n(p_1n^2+p_2n+p_3)1^n$ because $f(N)=n^21^n$ and multiplicty of charactericstic root is 1. Then:
+\begin{equation} 
+\begin{split} 
+    n(p_1n^2+p_2n+p_3)1^n = (n-1)(p_1(n-1)^2+p_2(n-1)+p_3)1^n+n^21^n\implies \\
+     (1-3p_1)n^2+(3p_1-2p_2)n+(p_2-p_3-p_1)=0 \implies p_1=\frac{1}{3},p_2=\frac{1}{2},p_3=\frac{1}{6}
+\end{split}
+\end{equation} 
+Then solution is:   
+\begin{equation} 
+\begin{split} 
+    a_n = a_n^{(h)}+a_n^{(p)} \implies C1^n+n(\frac{n^2}{3}+\frac{n}{2}+\frac{1}{6})1^n
+\end{split}
+\end{equation} 
+Then $a_1 = 1$ and $1=C+1$ then $C=0$
+\subsection*{1.2)}
+Since it is a nonhomogeneous recurrence relation, first we determine homogenous solution, then particular solution. To find homogenous solution:
+\begin{equation} 
+\begin{split} 
+    a_n=2a_{n-1} \\
+    r=2
+\end{split}
+\end{equation} \\
+Since it is characteristic root is 2 then we can say that $a_n^{(h)} = C2^n$,and Then particular solution is by theorem (on text book pg. 523) $a^{(p)}_n=(p_1)n2^n$ because $f(N)=2^n$ and multiplicity of characteristic root is 1. Then:
+\begin{equation} 
+\begin{split} 
+    np_12^n=2(n-1)(p_1)2^{n-1}+2^n \implies p_1n = p_1n-p_1+1 \implies p_1=1
+\end{split}
+\end{equation} 
+Then solution is:
+\begin{equation} 
+\begin{split} 
+    a_n = a_n^{(h)}+a_n^{(p)} \implies C2^n+n2^n
+\end{split}
+\end{equation} 
+Since $a_0 = 1$ and $1 = C2^0+02^0$ then $C=1$
+\section*{Answer 2}
+1)Basis Step: For n=1 $f(1)\leq g(1)$ since $f(1) = 1^2+15*1+5 = 21$ and $g(1) = 21*1^2 = 21$ \\
+2)Inductive Step: Assume $f(k) \leq g(k)$ is true for $1\leq k$. Then if P(k)
+\begin{equation} 
+\begin{split} 
+    f(k) \leq g(k) \implies k^2+15k+5 \leq  21k^2 \implies 15k+5 \leq 20k^2
+\end{split}
+\end{equation}\\
+In order to prove $f(k+1) \leq g(k+1)$:
+    
+\begin{equation} 
+\begin{split} 
+    f(k+1) \leq g(k+1) \implies (k+1)^2+15(k+1)+5 \leq  21(k+1)^2 \\
+    k^2+2k+1+15k+15+5 \leq 21k^2 +42k+21 \implies -25k \leq 20k^2 \\
+\end{split}
+\end{equation} 
+from induction hypothesis $15k+5 \leq 20k^2$  since $1\leq k$, $-25k\leq15k+5$ then $-25k \leq 20k^2$.
+\section*{Answer 3}
+\subsection*{1.a)}
+(.(Dot) is string concatenation operator) \\
+$F$ : $N^+ \to \sum^*$ is \\
+$F(i) = (p_{i}\land .F(i-1).)$ and $F (1) = (p_1)$ \\
+$\phi$ : $N^+ \to \sum^*$ is \\
+$\phi(i) = F(i).\to q$ \\
+$\psi$ : $N^+ \to \sum^*$ is \\
+$\psi(i) = (p_{i}\to .\psi(i-1).)$ and $\psi (1) = (p_1\to q)$ 
+\subsection*{1.b)}
+\textbf{Basis Step}: for i = 1 $\phi(1) = (p_1) \to q$ and $\psi(1) = p_1 \to q$ and clearly $\phi(1) \vdash \psi(1)$ \\
+\textbf{Recursive Step}:
+Suppose $\phi(k)$ and $\psi(k)$ are true for $1\leq k$.
+\begin{table}[H]
+	\centering
+\begin{tabular}{*6{l}}
+	$1$ & &  $(p_k\land (p_{k-1}\land (...(p_2\land (p_1))...) \to q $ & \textit{premise} & \\ \hline 
+	
+	$2$ & &  $p_k$ &\textit{assumption} & \\  \hline
+	
+	$3$ & &  $p_{k_1}$ &  \textit{assumption} & \\ \hline
+	
+	$...$ & &  $...$ & \textit{assumption} & \\ \hline 
+	
+	$k-1$ & &  $p_2$ &  \textit{assumption} & \\ \hline
+	
+	$k$ & &  $p_1$ &  \textit{assumption} & \\ 
+	
+	$k+1$ & &  $(p_k\land(p_{k_1}\land (...(p_2\land (p_1))..)$ & $\land i2,....,k$ & \\
+	
+	$k+2$ & & $q$ & $\to e$ $1,k+1$ & \\ \hline
+	
+	$k+3$ & &  $p_1 \to q$ & $\to i$ $k-k+2$ \\ \hline
+	
+	$k+4$ & &  $p_2\to(p_1 \to q)$ & $\to i$ $(k-1)-(k+3)$ & \\ \hline 
+	
+	$...$ & &  $...$ & $\to i ...-...$ & \\ \hline 
+	$2k+3$ & &  $(p_k\to(p_{k_1}\to ...(p_2\to(p_1 \to q)$ & $\to i$ $2-(2k+2)$ & \\  
+\end{tabular}
+\end{table}
+Hence $\phi(i) \vdash \psi(i)$
+\subsection*{2.a)}
+\textbf{Basis Step}:The height of a full binary tree T if T is consisting of 0 vertex which means empty three then $h(T)=-1$, if T is consisting of 1 vertex then $h(T)=0$ \\
+\textbf{Recursive Step}: If $T_1$ and $T_2$ are full binary trees, then the full binary tree $T=T_1.T_2$ has height $h(T)=1+max(h(T_1),h(T_2))$.
+\subsection*{2.b)}
+Here is the recursive definition of 223-tree. \\
+\textbf{Basis Step}:Empty tree and a single vertex is a 223-tree.  \\
+\textbf{Recursive Step}: If $T_1$ and $T_2$ are disjoint 223-tree, and $|H(T_1)-H(T_2)|\leq 2$, there is a 223-Tree, denoted by $T_1.T_2$, consisting of a root r together with edges connecting the root to each of the roots of left subtree $T_1$ and right subtree $T_2$ \\
+We can consider the max case as full binary tree since full binary tree is also 223-tree. \\
+$f:N\to N$ $f(h)=2f(h-1)+1$ and $f(0) = 1$ \\
+First we determine some values $g(0)=1,g(1)=2,g(2)=3,g(3)=5,g(4)=8,g(5)=12,g(6)=18...$. We can see that: \\
+$g:N\to N$ $g(h) = g(h-3)+g(h-1)+1$ and $g(0)=1$, $g(1)=2, g(2)=3$
+\subsection*{2.c)}
+\subsubsection*{For f} 
+\textbf{Basis Step}: Single vertex(N(1)) and H(0), it holds. \\
+\textbf{Recursive Step}: Assume $T_1$ is 223-tree and left subtree with height $h_1$ and $T_2$ is 223-tree right subtree with height $h_2$ and $h_1= h_2$ to be maximum number of vertices and new 223-tree is $T_1.T_2$ then its height must be $h_2=h-1$. Then
+\begin{equation} 
+\begin{split} 
+    f(h) = f(h_2)+f(h_1) +1 \implies f(h)=2f(h_2) +1 \implies f(h) = 2f(h-1)+1
+\end{split}
+\end{equation} 
+Then it is true.
+\subsubsection*{For g}
+\textbf{Basis Step}: g(0) which is single vertex is true, g(1) is minimum 2 vertices is true,g(2) minimum 3 vertices is true so, it holds. \\
+\textbf{Recursive Step}: Assume $T_1$ is 223-tree and left subtree with height $h_1$ and $T_2$ is 223-tree right subtree with height $h_2$ and $h_1=h_2-2$ to be minimum number of vertices and new 223-tree is $T_1.T_2$ then its height must be $h_2=h-1$. Then
+\begin{equation} 
+\begin{split} 
+    g(h) = g(h_1)+g(h_2)+1 \implies g(h) = g(h_2-2)+g(h_2) +1 \implies g(h)=g(h-3)+g(h-1)+1
+\end{split}
+\end{equation}
+Then it is true.
+\section*{Answer 4}
+\subsection*{1.a)}
+For a,  $1\leq j \leq i \leq n$ means that choose two integers from $[1,2,..,n]$ which is $C(n+2-1,2)$. However since $a=a+2$ we have to multiply these result with 2.
+\begin{equation} 
+\begin{split} 
+        2C(n+1,2) = 2\frac{(n+1)(n)(n-1)!}{2!(n-1)!}=n(n+1)=a
+\end{split}
+\end{equation} \\
+For b, $1\leq k \leq j \leq i \leq n$ means that choose three intehers from $[1,2,...,n]$ which is $C(n+3-1,3)$. Then:
+\begin{equation} 
+\begin{split} 
+  C(n+2,3) = \frac{(n+2)(n+1)(n)(n-1)!}{3!(n-1)!} = \frac{(n+2)(n+1)n}{6} = b  
+\end{split}
+\end{equation} 
+\subsection*{1.b)}
+We make them equal 
+\begin{equation} 
+\begin{split} 
+    n(n+1) = \frac{n(n+1)(n+2)}{6} \implies 6 = n+2 \implies n=4
+\end{split}
+\end{equation}
+\subsection*{2.a)}
+Since 3 plates have exactly 2 fruits. We can select 2 for first plate, then select 2 for second plate, then select 2 for last plate. It means that by product rule $C(10,2)*C(8,2)*C(6,2)$ which is equal:
+\begin{equation} 
+\begin{split} 
+   \frac{10!}{8!2!} * \frac{8!}{6!2!}* \frac{6!}{4!2!} = 45*28*15 = 18900
+\end{split}
+\end{equation} 
+\subsection*{2.b)}
+We choose 1 fruit for first plate, then 2 for second plate, 3 for third, and 4 for last. Then by product rule it is $C(10,1)*C(9,2)*C(7,3)*(4,4)$ which is equal:
+\begin{equation} 
+\begin{split} 
+   \frac{10!}{9!1!} * \frac{9!}{7!2!}* \frac{7!}{4!3!} *\frac{4!}{4!0!}= 10*36*35*1 = 12600
+\end{split}
+\end{equation}
+\subsection*{2.c)}
+Our partitions are: for (6,0,0,0) has 1 way $C(6,6)$, (5,1,0,0) we choose $C(6,1)$ rest will be determined after that, for (4,2,0,0) we can choose 2 of them rest will be determined $C(6,2)$, for (4,1,1,0) first we can choose  4 of them $C(6,4)$ then we can choose 1 of 2 but it is interchangeable so we must divide 2! then whole situation is $C(6,4)*C(2,1)/2!$, for (3,3,0,0) we can choose 3 of them rest will be determined after but again interchangeable so $C(6,3)/2!$,for (3,1,2,0) first we choose 3 of them, then 1 of rest, then it will be done $C(6,3)*C(3,1)$, for (3,1,1,1) we can choose 3 of them rest will be determined so $C(6,3)$, for (2,2,1,1) first choose 2 of 6, then 2 of 4, then rest are done but 2's are again interchangeable then $C(6,2)*C(4,2)/2!$, and lastly (2,2,2,0) first we choose 2 then choose 2 again of rest of them then it is done but these twos are interchangeable hence $C(6,2)*C(4,2)*3!$. Then by sum rule:
+\begin{equation} 
+\begin{split} 
+    C(6,6)+C(6,1)+C(6,2)+C(6,4)+C(6,4)*\frac{C(2,1)}{2!}+\frac{C(6,3)}{2!}\\+C(6,3)*C(3,1)+C(6,3) +C(6,2)*\frac{C(4,2)}{2!}+C(6,2)*\frac{C(4,2)}{3!}\\=1+6+15+15+10+60+20+45+15=187
+\end{split}
+\end{equation}
+\subsection*{2.d)}
+We know that number of r-combinations of n-objects with repetations $C(n+r-1,r)$. We can see this problem as $x+y+z+t = 6$ like $ |||******$,  so $C(9,3)$ but since not all of the dragon fruits have to be used we can consider that by sum rule $C(9,3)+C(8,3)+C(7,3)+C(6,3)+C(5,3)+C(4,3)+C(3,3)$ which means that:
+\begin{equation} 
+\begin{split} 
+   \frac{9!}{6!3!} + \frac{8!}{5!3!} + \frac{7!}{4!3!} +\frac{6!}{3!3!}+\frac{5!}{2!3!}+\frac{4!}{1!3!}+\frac{3!}{0!3!}= 84+56+35+20+10+4+1 = 210
+\end{split}
+\end{equation}
+\end{document}
+
+
+

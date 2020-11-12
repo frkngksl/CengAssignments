@@ -1,0 +1,2 @@
+SELECT DISTINCT P.tid,P.amount,P.time FROM performedOrders P, Account A WHERE P.type = 'BUY' AND A.accountNo = P.accountNo AND 
+A.cid IN (SELECT A2.cid FROM ShareOwned S,Account A2 WHERE A2.accountNo = S.accountNo GROUP BY A2.cid HAVING SUM(S.totalAmount) > 60) ORDER BY P.tid;

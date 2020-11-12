@@ -1,0 +1,530 @@
+\documentclass[10pt,a4paper, margin=1in]{article}
+\usepackage{fullpage}
+\usepackage{amsfonts, amsmath, pifont}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[
+  separate-uncertainty = true,
+  multi-part-units = repeat
+]{siunitx}
+\usepackage{tkz-euclide}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usetikzlibrary{angles, quotes}
+\pgfplotsset{compat=1.13}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={210mm,297mm},
+ left=10mm,
+ right=10mm,
+ top=10mm,
+ bottom=12mm,
+ }
+\begin{filecontents}{q3a.dat}
+ n   xn
+ -1  1
+ 0   2
+\end{filecontents}
+\begin{filecontents}{q3a2.dat}
+ n  hn
+ 1  1
+ -1 2
+\end{filecontents}
+\begin{filecontents}{q3a21.dat}
+ n  hn
+ -1  1
+ 1 2
+\end{filecontents}
+\begin{filecontents}{q3a3.dat}
+ n  yn
+ -2  2
+ -1  4
+ 0  1
+ 1  2
+\end{filecontents}
+ % Write both of your names here. Fill exxxxxxx with your ceng mail address.
+ \author{
+  Goksel, Furkan\\
+  \texttt{e2237436@ceng.metu.edu.tr}
+  \and
+  Gursoy, Ceren\\
+  \texttt{e2237485@ceng.metu.edu.tr}
+}
+\title{CENG 384 - Signals and Systems for Computer Engineers \\
+Spring 2020 \\
+Written Assignment 2}
+\begin{document}
+\maketitle
+
+
+
+\noindent\rule{19cm}{1.2pt}
+
+\begin{enumerate}
+
+\item %write the solution of q1
+    \begin{enumerate}
+    \item %write the solution of q1a
+    \begin{itemize}
+        \item A system is memory-less if the output of any time instant depends only on the input at that same instant.\\
+    However given system is equal to, 
+    \begin{gather*}
+        y[n] = \sum_{k=1}^\infty x[n-k] = x[n-1]+x[n-2]+x[n-3]+...
+    \end{gather*} \\
+    x[n-1],x[n-2] are all past values of given signal, therefore output depends on the past values of input $x$.\\
+    Therefore, the system has memory. \\
+    \item We know that a stable system produces bounded output for any bounded input signal.Assume that input x is bounded: 
+     \begin{gather*}
+         -a \le x[n] \le a  \text{$\qquad \forall$ n} 
+     \end{gather*} 
+     However, our summation equation goes to infinity, it is unbounded: 
+         \begin{gather*}
+         x[n-1]+x[n-2]+x[n-3]+... 
+        \end{gather*}
+    Therefore:
+    \begin{gather*}
+        -\infty \le y[n] \le \infty
+    \end{gather*}
+    Hence, the system is not stable. \\
+    \item In a causal system, the output $y(t)$ depends on the present and/or past values of the input to the system at any time instant.\\
+    In our system:
+        \begin{gather*}
+         y[n]=x[n-1]+x[n-2]+x[n-3]+... 
+        \end{gather*}
+    As we can see, output of our system depends on the only past values of the given input signal for all n. Therefore,the system is causal. \\
+    \item A system is linear if superposition property holds. Superposition property is as follows: 
+    \begin{gather*}
+        x_1(t) \rightarrow y_1(t) \\
+        x_2(t) \rightarrow y_2(t) \\
+        a_1x_1(t)+a_2x_2(t) \rightarrow a_1y_1(t)+a_2y_2(t)
+    \end{gather*}
+    and it is same for discrete time signal. In our system, If we calculate $x_1(t)$ and $x_2(t)$: 
+    \begin{gather*}
+       x_1[n]\rightarrow  y_1[n]=\sum_{k=1}^\infty x_1[n-k]  \\ 
+       x_2[n]\rightarrow y_2[n]=\sum_{k=1}^\infty x_2[n-k], \\
+    \end{gather*}
+    When we give the input $x_3[n]=ax_1[n]+bx_2[n]$ to the given system, we can see that:
+    \begin{gather*}
+        x_3[n]=ax_1[n]+bx_2[n]\rightarrow y_3[n]=\sum_{k=1}^\infty x_3[n-k] \\ 
+        \sum_{k=1}^\infty x_3[n-k] = x_3[n-1]+x_3[n-2]+... = (ax_1[n-1]+bx_2[n-1])+(ax_1[n-2]+bx_2[n-2])+... \\
+        y_3[n] = \sum_{k=1}^\infty (ax_1[n-k]+bx_2[n-k]) = a\sum_{k=1}^\infty x_1[n-k]+ b\sum_{k=1}^\infty x_2[n-k]
+    \end{gather*}
+    We can see that $a\sum_{k=1}^\infty x_1[n-k] = ay_1[n]$ and $b\sum_{k=1}^\infty x_2[n-k] = by_2[n]$. Therefore, that proves that superposition holds and the system is linear. \\
+    \item A system is invertible, if distinct inputs lead to distinct outputs and the inverse system yields an output equal to the input to the first system. If given system is invertible then there exists an inverse system $h^-1(t)$ such that:
+    \begin{gather*}
+        x(t) = h^{-1}(y(t))
+    \end{gather*}
+    This rule is same for discrete time signals. For our system, we can see that: 
+    \begin{gather*}
+        y[n] = \sum_{k=1}^\infty x[n-k]= x[n-1]+x[n-2]+x[n-3]+... \\
+        y[n+1] = \sum_{k=1}^\infty x[n+1-k] = x[n]+x[n-1]+x[n-2]+..
+    \end{gather*}
+    We can see that there is an extra term in y[n+1] which is x[n]. In order to obtain x[n], we can subtract them, and we get x[n]. Hence, our inverse system:
+    \begin{gather*}
+        h^{-1}[n] = y[n+1]-y[n]
+    \end{gather*}
+    Hence, inverse system exists, and our system is invertible.
+    \item A system is time invariant if a time shift of input causes a time shift at the output by the same amount for any input. In other words, if:
+     \begin{gather*}
+        x[n] \rightarrow y[n] \text{, then } x[n-n_0] \rightarrow y[n-n_0] \text{      $\qquad  \forall $  n} \\
+     \end{gather*}
+     The rule is same for continuous time signals. Then:
+     \begin{gather*}
+         x_1[n] \rightarrow y_1[n] = \sum_{k=1}^\infty x_1[n-k] \\
+         x_2[n] = x_1[n-n_0] \rightarrow y_2[n]=  \sum_{k=1}^\infty x_2[n-k]
+     \end{gather*}
+     We know that $ x_2[n] = x_1[n-n_0]$, if we replace $x_2[n-k]$ (k is summation index) with $x_1[n-n_0-k]$. We get:
+     \begin{gather*}
+         y_2[n] = \sum_{k=1}^\infty x_1[n-n_0-k]
+     \end{gather*}
+     
+     It is the result of time shift in the input. For time shift in the output, $y_1[n-n_0]$ is equal to $\sum_{k=1}^\infty x_1[n-n_0-k]$. Since $y_1[n-n_0]$ is equal to $y_2[n]$, system is time invariant. \\
+    \end{itemize}
+    
+    \item %write the solution of q1b
+    \begin{itemize}
+        \item The system has memory, because for all of t, output depends on the future values of given signals. \\
+        \item The system is not stable, because assume given input signal is bounded:
+        \begin{gather*}
+        -a \le x(t) \le a  \text{$\qquad \forall$ t}
+        \end{gather*}
+        And from our assumption output value is as follows:
+        \begin{gather*}
+            -at \le y(t) \le at
+        \end{gather*}
+        In this equation t is our time and it is unbounded. Therefore when t goes to $\infty$, bound will go to $\infty$. So, bounded input signal cannot produce bounded output. \\
+        \item  The system is not causal, because output depends on the future values of given input signal. For example, for $t=-1$ output depends on the future values:
+        \begin{gather*}
+            y(-1) = - x(2*(-1)+3) = -x(1)
+        \end{gather*}
+        \item The system is linear because superposition property holds:
+            \begin{gather*}
+            x_1(t) \rightarrow y_1(t)=tx_1(2t+3) \\
+            x_2(t) \rightarrow y_2(t)=tx_2(2t+3) \\
+            x_3(t)=ax_1(t)+bx_2(t) \rightarrow y_3(t)=tx_3(2t+3) \\
+            y_3(t)= atx_1(2t+3)+btx_2(2t+3) \text{\qquad (Substitution with $x_3(2t+3) = ax_1(2t+3)+bx_2(2t+3)$)} \\
+            y_3(t) = a(tx_1(2t+3))+b(tx_2(2t+3)) = ay_1(t)+by_2(t)
+            \end{gather*}
+        \item The system is not invertible because at $t=0$, output is 0 regardless of the input signal. Let's assume that there are two signal $x_1(t)$ and $x_2(t)$ and they are different only at $t=0$. When we give these two signals to the given system as input, we cannot distinguish them. Hence, system is not invertible.
+        \item The system is not time invariant. Because for: 
+        \begin{gather*}
+        x_1(t)\rightarrow y_1(t)=tx_1(2t+3)\\
+        x_2(t)=x_1(t-t_0) \rightarrow y_2(t)= tx_2(2t+3)\\
+        \end{gather*}
+        We know that $ x_2(t) = x_1(t-t_0)$, if we replace $x_2(2t+3)$ with $x_1(2t+3-t_0)$. We get:
+     \begin{gather*}
+         y_2(t) = tx_1(2t+3-t_0)
+     \end{gather*}
+      It is the result of time shift in the input. For time shift in the output, $y_1(t-t_0)$ is equal to $(t-t_0)x_1(2t-2t_0+3)$. Since $y_1(t-t_0)$ is not equal to $y_2(t)$, system is not time invariant. \\
+    \\
+    \end{itemize}
+    \end{enumerate}
+
+\item %write the solution of q2
+    \begin{enumerate}
+    % Write your solutions in the following items.
+    \item %write the solution of q2a
+    \begin{gather*}
+        \frac{dy(t)}{dt} = -5y(t)+x(t)
+    \end{gather*}
+    \\
+    \item %write the solution of q2b
+    Complete solution consists of the sum of a particular solution and homogeneous solution 
+    \begin{gather*}
+        y(t) = y_p(t)+y_h(t)
+    \end{gather*}
+    for $y_h(t)$ we hypothesize that $ y_h(t)=Ke^{\lambda t}$, then:
+    \begin{gather*}
+        y_h(t)=Ke^{\lambda t},\text{\quad}  y'_h(t) = \lambda Ke^{\lambda t}
+    \end{gather*}
+    when we put the equation in the homogeneous version of differential equation found in part a, 
+    \begin{gather*}
+        \lambda Ke^{\lambda t} +5Ke^{\lambda t} = 0\\
+        Ke^{\lambda t}(\lambda +5)=0\\
+        \lambda +5=0 \\
+        \lambda=-5
+    \end{gather*}
+    Hence our homogeneous solution is, 
+    \begin{gather*}
+        y_h(t)=Ke^{-5t}    
+    \end{gather*}
+    K is a constant and at the end we will find it using initial condition. Since system is LTI, we can solve and find $y_p(t)$ by calculating $u(t)e^{-t}$ and $u(t)e^{-3t}$ separately.\\ \\
+    For $u(t)e^{-t}$, let assume $y_{p1}(t)=Ae^{-t}$:
+    \begin{gather*}
+        y_{p1}(t)=Ae^{-t} \text{\quad }  y_{p1}'(t)=-Ae^{-t}.
+    \end{gather*}
+     Then, from the equation: 
+    \begin{gather*}
+        -Ae^{-t}+5Ae^{-t}=e^{-t} \\
+        4Ae^{-t}=e^{-t} \\
+        A=\frac{1}{4}
+    \end{gather*}
+    And for $u(t)e^{-3t}$, let assume $y_{p2}(t)=Be^{-3t}$: 
+    \begin{gather*}
+        y_{p2}(t)=Be^{-3t} \text{\quad}  y_{p2}'(t)=-3Be^{-3t}.
+    \end{gather*}
+    Then, from the equation: 
+    \begin{gather*}
+        -3Be^{-3t}+5Be^{-3t}=e^{-3t} \\
+        2Be^{-3t}=e^{-3t} \\
+        B=\frac{1}{2}
+    \end{gather*}
+    So, overall 
+    \begin{gather*}
+        y_p(t)=y_{p1}(t)+y_{p2}(t) \\
+        y_p(t)=\frac{1}{4}e^{-t}+\frac{1}{2}e^{-3t} \ for \ t>0
+    \end{gather*}
+    To sum up, $y(t)=y_h(t)+y_p(t)$ is 
+    \begin{gather*}
+        y(t)=Ke^{-5t}+\frac{1}{4}e^{-t}+\frac{1}{2}e^{-3t}.
+    \end{gather*}
+    If the system is initially at rest, 
+    \begin{gather*}
+        y(0)=0 \\
+        K+\frac{1}{4}+\frac{1}{2}=0 \\
+        K=\frac{-3}{4}
+    \end{gather*}
+    Finally complete solution is:  
+    \begin{gather*}
+        y(t)=(-\frac{3}{4}e^{-5t}+\frac{1}{4}e^{-t}+\frac{1}{2}e^{-3t})u(t)
+    \end{gather*}
+    \\
+    \end{enumerate}
+
+\item %write the solution of q3     
+    \begin{enumerate}
+    % Write your solutions in the following items.
+    \item %write the solution of q3a
+    Convolution sum in discrete time signals is equal to $y[n] = \sum^{\infty}_{k=-\infty}x[k]y[n-k]$. Firstly we draw x[n] and h[n]:
+     \begin{figure} [ht!]
+    \centering
+    \begin{tikzpicture}[scale=0.76]
+      \begin{axis}[
+          axis lines=middle,
+          xlabel={$n$},
+          ylabel={$\boldsymbol{x[n]}$},
+          xtick={ -1 , 0},
+          ytick={1 , 2},
+          ymin=-1, ymax=3,
+          xmin=-2, xmax=1,
+          every axis x label/.style={at={(ticklabel* cs:1.05)}, anchor=west,},
+          every axis y label/.style={at={(ticklabel* cs:1.05)}, anchor=south,},
+          grid,
+        ]
+        \addplot [ycomb, black, thick, mark=*] table [x={n}, y={xn}] {q3a.dat};
+      \end{axis}
+    \end{tikzpicture}
+    \caption{$n$ vs. $x[n]$.}
+    \label{fig:q1}
+\end{figure}
+\begin{figure} [ht!]
+    \centering
+    \begin{tikzpicture}[scale=0.76]
+      \begin{axis}[
+          axis lines=middle,
+          xlabel={$n$},
+          ylabel={$\boldsymbol{h[n]}$},
+          xtick={ -1 , 0, 1},
+          ytick={1, 2},
+          ymin=-1, ymax=3,
+          xmin=-2, xmax=2,
+          every axis x label/.style={at={(ticklabel* cs:1.05)}, anchor=west,},
+          every axis y label/.style={at={(ticklabel* cs:1.05)}, anchor=south,},
+          grid,
+        ]
+        \addplot [ycomb, black, thick, mark=*] table [x={n}, y={hn}] {q3a2.dat};
+      \end{axis}
+    \end{tikzpicture}
+    \caption{$n$ vs. $h[n]$.}
+    \label{fig:q2}
+\end{figure}
+\newpage
+In order to evaluate convolution sum, h[n-k] will take different n values and summation of products will be calculated. \\
+For $n=-2$:
+\begin{gather*}
+    y[-2] = \sum^{\infty}_{k=-\infty}x[k]h[-2-k] = x[-1]h[-2-(-1)] + x[0]h[-2-(0)]= 1*2+2*0 = 2
+\end{gather*}
+For $n=-1$:
+\begin{gather*}
+    y[-1] = \sum^{\infty}_{k=-\infty}x[k]h[-1-k] = x[-1]h[-1-(-1)] + x[0]h[-1-(0)] = 1*0+2*2 = 4
+\end{gather*}
+For $n=0$:
+\begin{gather*}
+    y[0] = \sum^{\infty}_{k=-\infty}x[k]h[-k] = x[-1]h[0-(-1)] + x[0]h[0-(0)] = 1*1+2*0 = 1
+\end{gather*}
+For $n=1$:
+\begin{gather*}
+    y[1] = \sum^{\infty}_{k=-\infty}x[k]h[1-k] = x[-1]h[1-(-1)] + x[0]h[1-(0)] = 1*0+2*1 = 2
+\end{gather*}
+For other n values, signals are not overlapped with each other hence all others are 0. Finally, y[n] = x[n] * h[n]:
+\begin{figure} [ht!]
+    \centering
+    \begin{tikzpicture}[scale=0.95]
+      \begin{axis}[
+          axis lines=middle,
+          xlabel={$n$},
+          ylabel={$\boldsymbol{y[n]}$},
+          xtick={ -2, -1 , 0, 1},
+          ytick={1, 2, 3, 4},
+          ymin=-1, ymax=5,
+          xmin=-3, xmax=2,
+          every axis x label/.style={at={(ticklabel* cs:1.05)}, anchor=west,},
+          every axis y label/.style={at={(ticklabel* cs:1.05)}, anchor=south,},
+          grid,
+        ]
+        \addplot [ycomb, black, thick, mark=*] table [x={n}, y={yn}] {q3a3.dat};
+      \end{axis}
+    \end{tikzpicture}
+    \caption{$n$ vs. $y[n]$.}
+    \label{fig:q3}
+\end{figure}
+\\
+    \item %write the solution of q3b
+        Convolution integral is calculated as $y(t)=x(t)*h(t) = \int_{-\infty}^\infty x(\tau)h(t-\tau)$ \\ \\
+        We know that (from Oppenheim book):
+    \begin{gather*}
+        Ku(t) = \int_{-\infty}^{t} K\delta(T) dT \\
+        K\delta(t)=K\dfrac{du(t)}{dt}
+    \end{gather*}
+    Then using these formulas, we can find $\dfrac{dx(t)}{dt}$:
+    \begin{gather*}
+        \dfrac{dx(t)}{dt} = \delta(t-1)+\delta(t+1)
+    \end{gather*}
+    Since convolution integral is commutative  $y(t)=x(t)*h(t)=h(t)*x(t)$, Then we can calculate the convolution integral $h(t)*\dfrac{dx(t)}{dt}$ as follow:
+    \begin{gather*}
+        \int_{-\infty}^\infty  e^{-\tau}sin(\tau)u(\tau)(\delta(t-1-\tau)+\delta(t+1-\tau))d\tau \\
+        = \int_{-\infty}^\infty  e^{-\tau}sin(\tau)u(\tau)\delta(t-1-\tau)d\tau + \int_{-\infty}^\infty  e^{-\tau}sin(\tau)u(\tau)\delta(t+1-\tau)d\tau
+    \end{gather*}
+    We know that (from Oppenheim book): 
+    \begin{gather*}
+\int_{-\infty}^\infty  x(\tau)\delta(t-\tau)d\tau = \int_{-\infty}^\infty  x(t)\delta(t-\tau)d\tau = x(t)\int_{-\infty}^\infty  \delta(t-\tau)d\tau = x(t)
+    \end{gather*}
+    Using this fact if we say $x(\tau)$ is equal to $ e^{-\tau}sin(\tau)u(\tau)$, our convolution integral which is the result becomes:
+    \begin{gather*}
+        \int_{-\infty}^\infty  x(\tau)\delta(t-1-\tau)d\tau + \int_{-\infty}^\infty  x(\tau)\delta(t+1-\tau)d\tau \\
+        = x(t-1)+x(t+1)
+    \end{gather*}
+    Then since our x(t) is equal to $ e^{-t}sin(t)u(t)$ the result becomes $ e^{-(t-1)}sin(t-1)u(t-1)+e^{-(t+1)}sin(t+1)u(t+1)$ \\
+    \end{enumerate}
+
+\item %write the solution of q4
+    \begin{enumerate}
+    % Write your solutions in the following items.
+    \item %write the solution of q4a
+    We know that convolution integral is calculated as follows:
+    \begin{gather*}
+        x(t)\ast h(t) = \int_{-\infty}^\infty x(\tau)h(t-\tau)d\tau
+    \end{gather*}
+    If we observe the given $h(t-\tau)$ and $x(\tau)$, we can see that that given signal $x(t)=e^{-t}u(t)$ is 0 for all negative values of t. Therefore when calculating convolution integral, we take integral of it from 0 to t, because for all negative values of t, the result will be 0. In other words, they are not overlapped for $t<0$. For positive values of t ($t>0$) we find: 
+    \begin{gather*}
+        x(t)*h(t) = \int_0^t e^{-2(t-\tau)}e^{-\tau}d\tau \\
+        = e^{-2t} \int_{0}^t e^\tau d\tau = e^{-2t}(e^t-1)=e^{-t}-e^{-2t} \text{$\qquad$ ($\forall t > 0$)}
+    \end{gather*}
+    Overall our result will be $y(t)=(e^{-t}-e^{-2t})u(t)$.
+    \item %write the solution of q4b
+    As we said that, convolution integral and convolution sum are commutative. Therefore $x(t)*h(t)=h(t)*x(t)$. Then for $h(t)*x(t)$ will be : 
+    \begin{gather*}
+        h(t)\ast x(t) = \int_{-\infty}^\infty h(\tau)x(t-\tau)d\tau
+    \end{gather*}
+    When we observe the given $h(\tau)$ and $x(t-\tau)$ we can see that given function $h(t)=e^{3t}u(t)$ is 0 for all negative values of t. Therefore, they are not overlapped for $t<0$, and the result will be 0 for $t<0$. \\
+    For $0<t<1$, we can see that overlapping area is in from 0 to t, and in this interval value of x(t) is 1. Then, for this interval result is: 
+    \begin{gather*}
+        \int_0^t e^{3\tau}d\tau = \frac{e^{3t}}{3}-\frac{1}{3}
+    \end{gather*}
+    For $1<t$ we can see that overlapping area is in from t-1 to t, and in this interval value of x(t) is 1.Then, for this interval result is:
+    \begin{gather*}
+        \int_{t-1}^t e^{3\tau}d\tau= \frac{e^{3t}}{3}-\frac{e^{3t-3}}{3}\\
+    \end{gather*}
+    So,
+        \[ \begin{cases}
+      0 & t< 0 \\
+      \frac{e^{3t}}{3}-\frac{1}{3} & 0<t<1 \\
+      \frac{e^{3t}}{3}-\frac{e^{3t-3}}{3} &  1<t 
+
+   \end{cases}
+\]
+    \end{enumerate}
+
+\item %write the solution of q5
+    \begin{enumerate}
+    % Write your solutions in the following items.
+    \item %write the solution of q5a
+    Let's assume that y[n] in $Ar^n$ form. If we substitute this to given equation we get:
+    \begin{gather*}
+        2Ar^{n+2}-3Ar^{n+1}+Ar^n=0 \\
+    \end{gather*}
+    Divide the equation with $Ar^n$, we get:
+    \begin{gather*}
+        2r^2-3r+1=0 \\
+        (2r-1)(r-1)=0
+    \end{gather*}
+    Therefore roots of our equation are $r=1$ and $r=\frac{1}{2}$. Then our function value will be: \\
+    \begin{gather*}
+        y[n] = A_1(1)^n+A_2(\frac{1}{2})^n 
+        \end{gather*}
+        To find the coefficients of $y[n]$, we will use initial conditions:
+        \begin{gather*}
+        y[0] = 1 \Rightarrow A_1+A_2=1 \\
+        y[1] = 0 \Rightarrow A_1+\frac{A_2}{2}=0\\
+        A_1 = -1 \text{\quad and \quad} A_2=2
+    \end{gather*}
+    Therefore our y[n] is: 
+    \begin{gather*}
+        y[n] = -(1)^n+2(\frac{1}{2})^n
+    \end{gather*}
+    \item %write the solution of q5b
+    Assume our homogenous equation is in form $Ke^{\lambda t}$, then when we substitute it to equation:
+    \begin{gather*}
+        Ke^{\lambda t}(\lambda^3-3\lambda^2+4\lambda-2) = 0 \text{$\qquad$ (Divide by $Ke^{\lambda t}$)} \\
+        \lambda^3-3\lambda^2+4\lambda-2=0 \\
+    \end{gather*}
+    We can see that one of the roots of our equation is 1. Therefore, we divide the given equation $\lambda -1$ in order to find other roots. When we divide $\lambda -1$ we can see that our new equation is:
+    \begin{gather*}
+        \lambda^2-2\lambda+2 = 0
+    \end{gather*}
+    To find the roots of this equation we use discriminant root formula and get:
+    \begin{gather*}
+        \dfrac{-(-2) \pm \sqrt{(-2)^2-4(1)(2)}}{2(1)} \\
+        = \dfrac{2\pm\sqrt{-4}}{2} \\
+        = \dfrac{2\pm2i}{2}
+        = 1\pm i
+    \end{gather*}
+    We get:
+    \begin{gather*}
+        c_1e^t+c_2e^{(1+i)t}+c_3e^{(1-i)t}
+    \end{gather*}
+    To handle complex roots of the equation:
+    \begin{gather*}
+        e^t(c_2e^{it}+c_3e^{-it})  \text{\qquad (Using Euler formula)}\\
+        e^t(c_2(cos(t)+isin(t))+c_3(cos(t)-isin(t))) \\
+        e^t((c_2+c_3)cost+(c_2i-c_3i)sin(t))
+    \end{gather*}
+    Since $(c_2+c_3)$ and $(c_2i-c_3i)$ are just coefficients, we can introduce new coefficients $c_4$ and $c_5$ and replace them. Then overall homogeneous equation will be:
+    \begin{gather*}
+        y(t) = c_1e^t+c_4e^tcost+c_5e^tsint
+    \end{gather*}
+    Now using initial conditions we can find our coefficients:
+    \begin{gather*}
+        y(0)=3 \rightarrow c_1e^0+c_4e^0cos0+c_5e^0sin0 \rightarrow c_1+c_4 = 3 \\
+        y'(0)=1 \rightarrow c_1e^t-c_4e^t(sin(t)-cos(t))+c_5e^t(sin(t)+cos(t)) \rightarrow c_1+c_4+c_5=1 \\
+        y''(0)=2 \rightarrow c_1e^t-2c_4e^tsin(t)+2c_5e^tcos(t) \rightarrow c_1+2c_5=2 \\
+        c_1 = 6 \qquad c_4=-3 \qquad c_5=-2
+    \end{gather*}
+    Overall y(t) is:
+    \begin{gather*}
+        y(t)= 6e^t-3e^tcost-2e^tsint
+    \end{gather*}
+    \end{enumerate}
+
+
+\item %write the solution of q6
+    \begin{enumerate}
+    % Write your solutions in the following items.
+    \item %write the solution of q6a
+    In order to find $h_0[n]$, we give impulse function $\delta[n]$ to the system. Remember that $\delta[n]$ is 1 for $n=0$, otherwise it is 0. To find it, we begin recursion:
+    \begin{gather*}
+        h_0[n]=\frac{1}{2}h_0[n-1]+\delta [n]\\
+        h_0[0] = \frac{1}{2}h_0[-1]+\delta [0] = 1 \\
+        h_0[1] = \frac{1}{2}h_0[0]+\delta [1] = \dfrac{1}{2}\\
+        h_0[2] = \frac{1}{2}h_0[1]+\delta [2] = (\dfrac{1}{2})^2\\
+        h_0[3] = \frac{1}{2}h_0[2]+\delta [3] = (\dfrac{1}{2})^3\\
+        ...\\
+        h_0[k] = \dfrac{1}{2}^k
+    \end{gather*}
+    Therefore, we detect that $h_0[n] =(\dfrac{1}{2})^nu[n] $ \\
+    \item %write the solution of q6b
+    From the figure we know that 
+    \begin{gather*}
+        w[n]= x[n]*h_0[n] \\
+        y[n]= w[n]*h_0[n] \\
+        y[n] = x[n]*h_[n]
+    \end{gather*}
+    When we substitute $w[n]$ in $ y[n]= w[n]*h_0[n]$ we get $y[n] = x[n]*h_0[n]*h_0[n]$. From this, we can see that $h[n] = h_0[n]*h_0[n]$. Therefore $h[n]$:
+    \begin{gather*}
+        h[n]=h_0[n]\ast h_0[n] \\
+        h[n]=\sum_{k=-\infty}^\infty h_0[k]h_0[n-k]\\
+        = \sum_{k=0}^n(\frac{1}{2})^k(\frac{1}{2})^{n-k}\\
+        =\sum_{k=0}^n(\frac{1}{2})^n
+        =(n+1)(\frac{1}{2})^n
+    \end{gather*}
+    Then, $h[n] = (n+1)(\frac{1}{2})^nu[n]$
+    \item %write the solution of q6c
+    These two subsystems are same. Therefore, their input and output relations are:
+    \begin{gather*}
+        w[n]=y[n]-\frac{1}{2}y[n-1] \\
+        x[n]=w[n]-\frac{1}{2}w[n-1] 
+    \end{gather*}
+    When we substitute w[n], we get the relationship between input x[n] and output y[n]
+    \begin{gather*}
+        x[n]=w[n]-\frac{1}{2}w[n-1] \\ 
+        x[n]=(y[n]-\frac{1}{2}y[n-1])-\frac{1}{2}(y[n-1]-\frac{1}{2}y[n-2]) \\
+        x[n]=y[n]-y[n-1]+\frac{1}{4}y[n-2]
+    \end{gather*}
+    So overall relationship is $x[n]=y[n]-y[n-1]+\frac{1}{4}y[n-2]$.
+    \end{enumerate}
+
+\end{enumerate}
+\end{document}

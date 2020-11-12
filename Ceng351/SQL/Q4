@@ -1,0 +1,3 @@
+SELECT distinct A1.cid FROM Account A1, performedOrders P1 WHERE A1.accountNo = P1.accountNo AND P1.type = 'BUY' AND P1.time <'2019-11-07'
+EXCEPT
+SELECT distinct A2.cid FROM Account A2, performedOrders P2 WHERE A2.accountNo = P2.accountNo AND P2.type = 'SELL' AND P2.time <'2019-11-07' ORDER BY A1.cid;

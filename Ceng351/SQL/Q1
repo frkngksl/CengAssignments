@@ -1,0 +1,1 @@
+DELETE FROM performedOrders WHERE accountNo IN (SELECT A.accountNo FROM Account A Where A.cid = 10002);

@@ -1,0 +1,3 @@
+SELECT distinct A.accountNo FROM Account A WHERE NOT EXISTS 
+( SELECT S1.shareID FROM Share S1 WHERE S1.priceSell > 10 
+EXCEPT SELECT SO2.shareID FROM ShareOwned SO2 WHERE SO2.accountNo = A.accountNo) Order By A.accountNo; 

@@ -1,0 +1,2 @@
+SELECT DISTINCT O1.accountNo FROM ShareOwned O1,ShareOwned O2, Share S1,Share S2 
+WHERE S1.shareID = O1.ShareID AND S2.shareID = O2.shareID AND O1.accountNo = O2.accountNo AND S1.ShareName <> S2.shareName AND S1.priceBuy > 10 AND S2.priceBuy > 10 ORDER BY O1.accountNo;

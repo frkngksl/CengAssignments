@@ -1,0 +1,49 @@
+#Furkan Goksel 2237436
+.pos 0
+init:
+    irmovq stack, %rsp  # Set up stack pointer
+    call main   # Execute main program
+    halt    # Terminate program
+
+.align 8
+# Source block
+src:
+    .quad 0x00a
+    .quad 0x0b0
+    .quad 0xc00
+
+# Destination block
+dest:
+.quad 0x111
+.quad 0x222
+.quad 0x333
+
+main:
+    irmovq src,%rdi
+    irmovq dest,%rsi
+    irmovq $24, %rdx
+    call copy_block
+    ret
+
+
+copy_block:
+    irmovq $0,%rcx
+    irmovq $0x1, %r10 #constant
+    irmovq $0x8, %r11 #constant
+    irmovq $0,%rax
+    jmp test
+copy_Operation:
+    mrmovq (%rdi),%rcx
+    rmmovq %rcx,(%rsi)
+    xorq %rcx, %rax
+    subq %r10, %rdx
+    addq %r11, %rsi
+    addq %r11, %rdi
+test:
+    andq %rdx, %rdx
+    jg copy_Operation
+    ret
+
+# Stack starts here and grows to lower addresses
+.pos 0x200
+stack:

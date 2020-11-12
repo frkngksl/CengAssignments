@@ -1,0 +1,3 @@
+set ($eflags)=0x243
+
+ile condition değiştir flagleri değişiyorsun

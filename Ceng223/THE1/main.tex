@@ -1,0 +1,225 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{amsmath}
+
+
+\usepackage[hmargin=3cm,vmargin=6.0cm]{geometry}
+%\topmargin=0cm
+\topmargin=-2cm
+\addtolength{\textheight}{6.5cm}
+\addtolength{\textwidth}{2.0cm}
+%\setlength{\leftmargin}{-5cm}
+\setlength{\oddsidemargin}{0.0cm}
+\setlength{\evensidemargin}{0.0cm}
+
+%misc libraries goes here
+%\usepackage{fitch}
+
+
+\begin{document}
+
+\section*{Student Information } 
+%Write your full name and id number between the colon and newline
+%Put one empty space character after colon and before newline
+Full Name : Furkan Göksel \\
+Id Number : 2237436 \\
+
+% Write your answers below the section tags
+\section*{Answer 1}
+\subsection*{1.a)}
+\begin{table}[H]
+\small
+\centering
+\caption{ Truth table for $((p \to q)\leftrightarrow(p \land \neg r)) \to \neg(q \land r)$  }
+\label{table:example}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}	%% specify column number and vertical lines
+\hline 							%% line draw
+\textbf{$p$} & \textbf{$q$} & \textbf{$r$} & \textbf{$ \neg r$} & \textbf{$p \to q$} & \textbf{$p \land \neg r $} & \textbf{$(p \to q)\leftrightarrow(p \land \neg r)$} & \textbf{$q \land r$} & \textbf{$\neg(q \land r)$} &\textbf{$((p \to q)\leftrightarrow(p \land \neg r)) \to \neg(q \land r)$} \\
+\hline 
+\hline
+\textbf{T} & \textbf{T} & \textbf{T} & \textbf{F} & \textbf{T} & \textbf{F} & \textbf{F} & \textbf{T} & \textbf{F} & \textbf{T}\\	
+\hline
+\textbf{T} & \textbf{T} & \textbf{F} & \textbf{T} & \textbf{T} & \textbf{T} & \textbf{T} & \textbf{F} & \textbf{T} & \textbf{T}\\
+\hline
+\textbf{T} & \textbf{F} & \textbf{T} & \textbf{F} & \textbf{F} & \textbf{F} & \textbf{T} & \textbf{F} & \textbf{T} & \textbf{T}\\
+\hline
+\textbf{T} & \textbf{F} & \textbf{F} & \textbf{T} & \textbf{F} & \textbf{T} & \textbf{F} & \textbf{F} & \textbf{T} & \textbf{T}\\
+\hline
+\textbf{F} & \textbf{T} & \textbf{T} & \textbf{F} & \textbf{T} & \textbf{F} & \textbf{F} & \textbf{T} & \textbf{F} & \textbf{T}\\
+\hline
+\textbf{F} & \textbf{T} & \textbf{F} & \textbf{T} & \textbf{T} & \textbf{F} & \textbf{F} & \textbf{F} & \textbf{T} & \textbf{T}\\
+\hline
+\textbf{F} & \textbf{F} & \textbf{T} & \textbf{F} & \textbf{T} & \textbf{F} & \textbf{F} & \textbf{F} & \textbf{T} & \textbf{T}\\
+\hline
+\textbf{F} & \textbf{F} & \textbf{F} & \textbf{T} & \textbf{T} & \textbf{F} & \textbf{F} & \textbf{F} & \textbf{T} & \textbf{T}\\
+\hline
+
+
+\end{tabular}
+\end{table}
+
+Since $((p \to q)\leftrightarrow(p \land \neg r)) \to \neg(q \land r)$ is \textbf{T} for all assignment values, it is \textbf{TAUTOLOGY}
+
+\subsection*{1.b)}
+
+\begin{table}[H]
+\small
+\centering
+\caption{ Truth table for $\neg((p \lor q) \land (p \to q) \lor (q \to \neg p)) $  }
+\label{table:example}
+\begin{tabular}{|c|c|c|c|c|c|c|c|}	%% specify column number and vertical lines
+\hline 							%% line draw
+\textbf{$p$} & \textbf{$q$} & \textbf{$\neg p$} & \textbf{$p \lor q$} & \textbf{$p \to q$} & \textbf{$q \to \neg p $} & \textbf{$(p \lor q) \land (p \to q) \lor (q \to \neg p)$} & \textbf{$\neg((p \lor q) \land (p \to q) \lor (q \to \neg p))$} \\
+\hline 
+\hline
+\textbf{T} & \textbf{T} & \textbf{F} & \textbf{T} & \textbf{T} & \textbf{F} & \textbf{T} & \textbf{F}   \\	
+\hline
+\textbf{T} & \textbf{F} &\textbf{T} & \textbf{T} & \textbf{F} & \textbf{T} & \textbf{T} & \textbf{F}   \\
+\hline
+\textbf{F} & \textbf{T} & \textbf{F} & \textbf{T} & \textbf{T} & \textbf{T} & \textbf{T} & \textbf{F}   \\
+\hline
+\textbf{F} & \textbf{F} & \textbf{T} & \textbf{T} & \textbf{T} & \textbf{T} & \textbf{T} & \textbf{F}   \\
+\hline
+
+\end{tabular}
+\end{table}
+
+Since $\neg((p \lor q) \land (p \to q) \lor (q \to \neg p))$ is \textbf{F} for all assignment values, it is \textbf{CONTRADICTION}
+\subsection*{2.a)}
+
+Let U is R, $P(x)$ denotes $x > 0$ , and $Q(x)$ denotes $x < 0$ . With this assumption, there is a some positive real numbers and there is a some negative numbers in U, so $\exists xP(x) \land \exists xQ(x)$ is True. However, since Existential Quantifier scope includes whole expression ( $(P(x) \land Q(x))$ )  there is not a number both $x > 0$ and $x < 0$ in the domain, and this makes it False. So this logic argument is \textbf{invalid}.
+
+\subsection*{2.b)}
+
+$\forall xP(x)$ means that this propositional function is True for all x in the domain, and $\exists xQ(x)$ means that there is at least one x in the domain which Q(x) is True. Then, if all x provides P, there is an x which provides Q. Therefore, this logic argument is \textbf{valid}.
+
+
+\section*{Answer 2}
+\begin{enumerate}
+	\item $(\neg p \lor p) \to ((p \land \neg q) \to r) $  \hspace{120px} Given Equation
+	\item $\neg(\neg p \lor p) \lor ((p \land \neg q ) \to r)$ \hspace {118px} Table 7 First Equation
+	\item $ (\neg (\neg p) \land \neg p) \lor ((p \land \neg q) \to r)$ \hspace{100px} De Morgan's Law
+	\item $ (p \land \neg p) \lor ((p \land \neg q) \to r)$ \hspace{126px} Double Negation Law
+	\item \textbf{F} $ \lor ((p \land \neg q)\to r)$ \hspace{160px} Negation Law
+	\item  $((p \land \neg q)\to r)  \lor $ \textbf{F} \hspace{160px} Commutative Law
+	\item $((p \land \neg q) \to r)$ \hspace{180px} Identity Law
+	\item $(\neg (p \land \neg q) \lor r)$ \hspace{178px} Table 7 First Equation 
+	\item $(\neg p \lor \neg (\neg q)) \lor r$ \hspace{170px} De Morgan's Law
+	\item $(\neg p \lor q) \lor r$ \hspace{195px} Double Negation Law
+	\item $ \neg p \lor (q \lor r)$ \hspace{195px} Associative Law
+	\item $ ( q \lor r) \lor \neg p$ \hspace{195px} Commutative Law
+	\item \textbf{END OF PROOF}
+\end{enumerate}
+
+
+\section*{Answer 3}
+\begin{enumerate}
+	\item $\forall x(W(x) \to$ $ Has\textunderscore CS\textunderscore Degree(x))$
+	\item $\forall x \forall y((Phd(x)\land W(x))\land(Phd(y)\land W(y)\land (x \neq y)) \to (Knows(x,y) \land Knows(y,x)))$
+	\item $ W(Cenk) \land \forall y ((W(y) \land  y \neq Cenk ) \to Older(Cenk,y))$
+	\item $\forall x(W(x) \to ((x \neq Selin) \leftrightarrow Phd(x)))$
+	\item $\exists x \exists y(W(x) \land W(y) \land (\neg Knows(x,y)))$
+	\item $\forall x \forall y \forall z ((P(x)\land P(y)\land P(z))\to (x=y\lor x=z \lor y=z)) $
+	\item $\exists x \exists y \exists z ( Older(x,Gizem) \land Older(y,Gizem) \land Older(z,Gizem) \land x\neq y \land x \neq z \land y \neq z )$
+	\item $\exists x((Phd(x) \land W(x)) \land \forall y((Phd(y)\land W(y)) \to y = x) $
+\end{enumerate}
+\section*{Answer 4}
+\begin{table}[H]
+	\centering
+\begin{tabular}{*6{l}}
+	$1$ & &  $(p \to r) \lor (q \to r) $ & \textit{premise} & \\ \hline \hline
+	
+	$2$ & &  $p \land q$ &\textit{assumption} & \\  \hline
+	
+	$3$ & &  $p \to r$ &  \textit{assumption} & \\ 
+	
+	$4$ & &  $p$ & $\land e_1$ $2$ & \\ 
+	
+	$5$ & &  $r$& $\to e$ $3,4$ \\ \hline
+	
+	& & & & \\ \hline
+	
+	$6$ & &  $q \to r $ & \textit{assumption} & \\
+	
+	$7$ & & $q$ & $\land e_2$ $2$ & \\
+	
+	$8$ & &  $r$ & $\to e$ $6,7$ \\ \hline
+	
+	$9$ & &  $r$ & $\lor e$ $1, 3-5, 6-8$ & \\ \hline \hline
+	
+	$10$ & &  $(p \land q ) \to r$ & $\to i$ $2-9$ & \\
+	
+\end{tabular}
+\end{table}
+\section*{Answer 5}
+\begin{table}[H]
+	\centering
+\begin{tabular}{*6{l}}
+	$1$ & &  $\neg p \lor \neg q $ & \textit{premise} & \\ \hline \hline
+	
+	$2$ & &  $p \land q$ &\textit{assumption} & \\ 
+	
+	$3$ & &  $p$ & $\land e_1$ $2$ & \\ 
+	
+	$4$ & &  $q$ & $\land e_2$ $2$ & \\ \hline
+	
+	$5$ & &  $\neg p$ &  \textit{assumption} & \\ 
+	
+	$6$ & &  $\bot $ & $\neg e$ $3,6$ &  \\ 
+	
+	$7$ & &  $r $ & $\bot e$ $6$ & \\ \hline
+	
+	& & & & \\ \hline
+	
+	$8$ & &  $\neg q$ & \textit{assumption} \\ 
+	
+	$9$ & &  $\bot $ & $\neg e$ $4,8$ &  \\ 
+	
+	$10$ & &  $r $ & $\bot e$ $9$ & \\ \hline
+	
+	$11$ & & $r $ & $\lor e$ $1, 5-7,8-10$ & \\ \hline \hline
+	
+	$12$ & & $(p\land q) \to r$ & $\to  i$ $2-10$
+	
+	
+\end{tabular}
+\end{table}
+
+\section*{Answer 6}
+\begin{table}[H]
+    \centering
+\begin{tabular}{*6{l}}
+	$1$ & & & $\forall x (P(x) \rightarrow (Q(x) \to R(x)))$ & \textit{premise} & \\ 
+	
+	$2$ & & & $\exists x (P(x))$ &\textit{premise} & \\ 
+	
+	$3$ & & &$\forall (\neg R(x))$ &\textit{premise}& \\ \hline \hline
+	
+	$4$  & & $c$ & $P(c)$ & \textit{assumption}&\\
+	
+	$5$ & & & $P(c) \to (Q(c) \to R(c))$ & $\forall$e $1$& \\ 
+	
+	$6$ & & & $Q(c) \to R(c)$ & $\to$e $4,5$ & \\
+	
+	$7$ & & & $\neg R(c) $ & $\forall$e $3$ & \\ \hline
+	
+	$8$ & & & $ Q(c) $ & \textit{assumption}  & \\ 
+	
+	$9$ & & & $ R(c) $ & $\to$e $6,8$  & \\ 
+	
+	$10$ & & &  $\bot $ & $\neg e$ $7,9$ &  \\ \hline
+	
+	$11$ & & &  $\neg Q(c) $ & $\neg i$ $8-10$ &  \\
+	
+	$12$ & & & $\exists x(\neg Q(x)) $ & $\exists$i $11$ & \\ \hline \hline
+	
+	$13$ & & & $\exists x(\neg Q(x)) $ & $\exists$e $2,4-12$ & \\
+	
+\end{tabular}
+\end{table}
+
+
+\end{document}
+
+​

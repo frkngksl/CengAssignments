@@ -1,0 +1,239 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{amsmath}
+
+
+\usepackage[hmargin=3cm,vmargin=6.0cm]{geometry}
+%\topmargin=0cm
+\topmargin=-2cm
+\addtolength{\textheight}{6.5cm}
+\addtolength{\textwidth}{2.0cm}
+%\setlength{\leftmargin}{-5cm}
+\setlength{\oddsidemargin}{0.0cm}
+\setlength{\evensidemargin}{0.0cm}
+
+%misc libraries goes here
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning}
+
+\begin{document}
+
+\section*{Student Information } 
+%Write your full name and id number between the colon and newline
+%Put one empty space character after colon and before newline
+Full Name : Furkan Göksel \\
+Id Number : 2237436 \\
+
+% Write your answers below the section tags
+\section*{Answer 1}
+
+\subsection*{a.}
+Number of tries until the kth success means that it belongs to Negative Binomial Distribution. Therefore our distribution is Negative Binomial Distribution, and our PMF is 
+\begin{gather*}
+    P(x)=\binom{x-1}{k-1}(1-p)^{x-k}p^k
+\end{gather*}
+where x is our number of tries, k is number of success and p is probability of success.According to method of maximum likelihood,to maximize the likelihood we should take derivative of $P(X)=\prod_{i=1}^{n}P(X_i)$ with respect to the parameter, and make equal to 0, $\dfrac{d}{d\theta}P(\textbf{X}) = 0$ and to make this operation more easier, firstly take the logarithms of the given equation.
+\begin{gather*}
+    lnP(N) = ln\binom{N-1}{k-1}+(N-k)ln(1-\theta)+kln(\theta)
+\end{gather*}
+Since $ln\prod_{i=1}^{n}P(X_i)=\sum_{i=1}^n lnP(X_i)$ we get,
+\begin{gather*}
+    lnP(\textbf{N}) = \sum_{i=1}^n lnC + ln(1-\theta) \sum_{i=1}^n(N_i-k)+ln(\theta) \sum_{i=1}^nk
+\end{gather*}
+Where C is a constant doesn't include $\theta$ parameter. Then let's take the derivative of our equation to $\theta$ and make it equal to 0 in order to maximize.
+
+\begin{gather*}
+    \dfrac{d}{d\theta}lnP(\textbf{N}) = \dfrac{\sum_{i=1}^n(N_i-k)}{\theta-1}+\dfrac{nk}{\theta}=0 \\
+    \dfrac{nk-\sum_{i=1}^n(N_i)}{\theta -1}=\dfrac{nk}{\theta} \\
+    \theta nk -\theta \sum_{i=1}^n (N_i) = \theta nk -nk \\
+    \hat{\theta}= \dfrac{nk}{\sum_{i=1}^n (N_i)}
+\end{gather*}
+
+\subsection*{b.}
+Number of success in a fixed number of tries means it is binomial distribution, and hence our PMF is 
+\begin{gather*}
+    P(x) = p^x(1-p)^{n-x}
+\end{gather*}
+
+where x is number of successes, n is number of tries and p is the probability of success.According to method of maximum likelihood,to maximize the likelihood we should take derivative of $P(X) = \prod^n_{i=1} P(X_i)$ with respect to the parameter, and make equal to 0, $\dfrac{d}{d\theta}P(\textbf{X}) = 0$ and to make this operation more easier, firstly take the logarithms of the given equation. 
+
+\begin{gather*}
+   lnP(K) = Kln\theta + (n-K)ln(1-\theta)
+\end{gather*}
+Since $ln\prod_{i=1}^{n}P(X_i)=\sum_{i=1}^n lnP(X_i)$ we get,
+\begin{gather*}
+    lnP(\textbf{K}) =ln\theta \sum_{i=1}^m K_i +ln(1-\theta) \sum_{i=1}^m (n-K_i)
+\end{gather*}
+Then let's take the derivative of our equation to $\theta$ and make it equal to 0 in order to maximize.
+\begin{gather*}
+    \dfrac{d}{d\theta}lnP(\textbf{K}) = \dfrac{\sum_{i=1}^m K_i}{\theta} + \dfrac{\sum_{i=1}^m (n-K_i)}{\theta -1} = 0 \\
+    \dfrac{\sum_{i=1}^m K_i}{\theta} = \dfrac{\sum_{i=1}^m K_i -mn}{\theta -1} \\
+    \theta \sum_{i=1}^m K_i - \sum_{i=1}^m K_i = \theta \sum_{i=1}^m K_i - \theta mn \\
+   \hat{\theta} = \dfrac{\sum_{i=1}^m K_i}{mn}
+\end{gather*}
+\section*{Answer 2}
+
+\subsection*{a.}
+Firstly, let's find likelihood of parameter $\mu$ in the normal distribution, PDF of normal distribution is 
+\begin{gather*}
+P(x) = \dfrac{1}{\sigma \sqrt{2\pi}}e^{(\dfrac{-(x-\mu)^2}{2\sigma ^2})}
+\end{gather*}
+Then let's maximize the likelihood , 
+\begin{gather*}
+    lnP(x) = -ln(\sigma \sqrt{2\pi})-\dfrac{(x-\mu)^2}{2\sigma ^2} \\
+    lnP(\textbf{X}) = -\sum_{i=1}^n ln(\sigma \sqrt{2\pi}) - \sum_{i=1}^n \dfrac{(X_i-\mu)^2}{2\sigma ^2} \\
+    \dfrac{d}{d \mu}lnP(\textbf{X}) = 2 \dfrac{1}{2\sigma^2} \sum_{i=1}^n (X_i-\mu) = 0 \\
+    n \mu =   \sum_{i=1}^n X_i \\
+    \hat{\mu} = \dfrac{\sum_{i=1}^n X_i}{n} = \Bar{X}
+\end{gather*}
+so from our sample, sample mean is 
+\begin{gather*}
+    \Bar{X} = \dfrac{6.5+8.8+7.5+9.2+9.9+12.4}{6} = \dfrac{54.3}{6} = 9.05
+\end{gather*}
+So $\hat{\mu}$ is 9.05
+\subsection*{b.}
+$(1-\alpha)100\%$ confidence interval for $\mu$ 
+\begin{gather*}
+    \Bar{X} \pm z_{\alpha/2} \dfrac{\sigma}{\sqrt{n}}
+\end{gather*}
+We know the variance ($\sigma ^2$) so we don't need to estimate it. Sample has size $n = 6$ and sample mean (from part a) $\Bar{X} = 9.05$ . To attain a confidence level of 
+\begin{gather*}
+    1 - \alpha = 0.95 \\
+    \alpha = 0.05 \\
+    \alpha / 2 = 0.025
+\end{gather*}
+From the table $z_{0.025} = 1.960$ Substituting these values into the formula, 
+\begin{gather*}
+    \Bar{X} \pm z_{\alpha/2} \dfrac{\sigma}{\sqrt{n}} = 9.05 \pm (1.960) \sqrt{\dfrac{0.8}{6}} \\
+    \approx 9.05 \pm 0.7154
+\end{gather*}
+We can say that the intended interval is $[8.3346,9.7654]$
+\subsection*{c.}
+Since $0.5$ is given as a distance, margin of error is $0.25$, so this question asks that $z_{\alpha/2} \dfrac{\sigma}{\sqrt{n}} \leq 0.25$. So first we find $z_{\alpha/2}$
+\begin{gather*}
+     1 - \alpha = 0.99 \\
+    \alpha = 0.01 \\
+    \alpha / 2 = 0.005
+\end{gather*}
+From the table $z_{0.005}= 2.576$ so let's substitute the values
+\begin{gather*}
+    2.576 \sqrt{\dfrac{0.8}{n}} \leq 0.25 \\
+    n \geq 84.9379 \\
+\end{gather*}
+So n should be at least 85. But our sample of size is 6 then we need 79 more samples.
+\section*{Answer 3}
+
+\subsection*{a.}
+From estimating proportions with a given precision, we have a formula like this;
+\begin{gather*}
+    n \geq 0.25(\dfrac{z_{\alpha/2}}{\Delta})^2
+\end{gather*}
+So, firstly we find $z_{\alpha/2}$;
+\begin{gather*}
+    1- \alpha = 0.8 \\
+    \alpha = 0.2 \\
+    \alpha/2 = 0.1 \\
+    z_{\alpha/2} = z_{0.1} = 1.282
+\end{gather*}
+Our margin will not exceed 0.2 since the difference
+between $\dfrac{x}{n}$ and $p$ is less than 0.02., so $\Delta$=0.2. Then when we substitute the values into the formula we get;
+\begin{gather*}
+    n \geq 0.25 (\dfrac{1.282}{0.2})^2 \\
+    n \geq 10.272
+\end{gather*}
+So smallest n is 11.
+\subsection*{b.}
+No proportion estimate is given and also there is no $\alpha$, so assume that $\hat{p} = 0.5$ and $\alpha$ is $5\%$. Then since margin of error is $0.06$, we get;
+\begin{gather*}
+        n \geq \hat{p} (1-\hat{p}) (\dfrac{Z_{\alpha}}{\Delta})^2 \\
+        n \geq 0.25 (\dfrac{1.960}{0.06})^2 \\
+        n \geq 266.7
+\end{gather*}
+So our sample size should be 267. So now, we should find for $\Delta = 0.03$;
+\begin{gather*}
+    n \geq \hat{p} (1-\hat{p}) (\dfrac{Z_{\alpha}}{\Delta})^2 \\
+    n \geq 0.25 (\dfrac{1.960}{0.03})^2 \\
+    n \geq 1067.1
+\end{gather*}
+Hence our new sample size is 1068. So we should add 801 more sample.
+\section*{Answer 4}
+Our null hypothesis is $H_0: \mu = 120$ and alternative hypothesis is $H_1: \mu \neq 120$, so it is two sided alternative. Let's calculate Test statistics, so then one-sample Z-tests for means 
+\begin{gather*}
+    Z_{obs} = \dfrac{\Bar{X}- \mu_0}{\sigma / \sqrt{n}} = \dfrac{123.3-120}{10/\sqrt{16}} = 1.32
+\end{gather*}
+Since it is two sided we calculate P-value like this,
+\begin{gather*}
+    P\{|Z| \geq |Z_{obs}|\} = 2(1-\Phi(|Z_{obs}|))
+\end{gather*}
+From the table we find $\Phi(|1.32|) = 0.9066$, and then 
+\begin{gather*}
+    P=P\{|Z| \geq |Z_{obs}|\} = 2(1-\Phi(|Z_{obs}|)) = 2(1-0.9066) = 0.1868
+\end{gather*}
+So $P=0.1868$. Practically, 
+\begin{gather*}
+    \text{If   P} < \text{0.01, \;     reject }H_0 \\
+    \text{If   P} > \text{0.1,  \;     accept }H_0
+\end{gather*}
+So since $0.1868 > 0.1$ we accept $H_0$. In order to reject $H_0$ our P-value should be less than 0.01, and also it shouldn't be between 0.01 and 0.1 because if it is in this interval, we can't decide whether it is accepted or not.
+\section*{Answer 5}
+A type I error occurs when we reject the true null hypothesis. \\
+A type II error occurs when we accept the false null hypothesis. 
+\subsection*{a.}
+Probability of Type I error is following;
+\begin{gather*}
+    P \{\text{reject $H_0$}\; | \; \text{$H_0$ is true}\}
+\end{gather*}
+So we solve this question by using this formula;
+\begin{gather*}
+    P\{k \leq 2 \; | \; \lambda = 6\;\} 
+\end{gather*}
+It is Poisson distribution, and we should calculate $P\{X\leq 2\}$ when $\lambda = 6$. It is equal to F(2), and from the table, (A3) F(2) = 0.062, so probability of committing a type I error is 0.062.
+\subsection*{b.}
+Probability of Type II error is following;
+\begin{gather*}
+    P \{\text{accept $H_0$} \; | \; \text{$H_A$ is true} \} .
+\end{gather*}
+Since if we reject $H_0$ with $k\leq 2$, we accept $H_0$ with $k > 2$;
+\begin{gather*}
+    P\{k > 2 \; | \; \lambda < 6\;\}
+\end{gather*}
+It is Poisson distirbution, so we should calculate 1-F(2) for all $\lambda < 6$, and since we don't know exactly $\lambda$ value (it is set of values), it gives the function which depends on the $\lambda$. So it is exactly the 1-P(2)-P(1)-P(0) for all $\lambda < 6$;
+\begin{gather*}
+    1-P(2)-P(1)-P(0) = 1-(\dfrac{\lambda^0}{0!}e^{-\lambda}+\dfrac{\lambda^1}{1!}e^{-\lambda}+\dfrac{\lambda^2}{2!}e^{-\lambda}) \\
+    =1-e^{-\lambda}(1+\lambda+\dfrac{\lambda^2}{4}) 
+\end{gather*}
+Hence probability of committing a Type II error, is a function $P(\lambda) = 1-e^{-\lambda}(1+\lambda+\dfrac{\lambda^2}{4})  $ for $6<\lambda$
+\section*{Answer 6}
+Estimating slope and intercept by method of least squares is following; ($b_0$ intercept $b_1$ slope)
+\begin{gather*}
+b_0 = \Hat{\beta_0}    = \Bar{y} - b_1 \Bar{x} \\
+b_1 = \Hat{\beta_1}    = S_{xy}/S_{xx}
+\end{gather*}
+where 
+\begin{gather*}
+    S_{xx} = \sum_{i=1}^n(x_i-\Bar{x})^2 \\
+    S_{xy} = \sum_{i=1}^n(x_i-\Bar{x})(y_i-\Bar{y})
+\end{gather*}
+So let's first compute $\Bar{x}$ and $\Bar{y}$;
+\begin{gather*}
+    \Bar{x} = \dfrac{1+2+3+4}{4} = 2.5 \\
+    \Bar{y} = \dfrac{12.6+11.6+6.8+9.2}{4} = 10.05 \\
+\end{gather*}
+So let's compute $S_{xx}$ and $S_{xy}$;
+\begin{gather*}
+    S_{xx} = (1-2.5)^2+(2-2.5)^2+(3-2.5)^2+(4-2.5)^2 = 5 \\
+    S_{xy} = (1-2.5)(12.6-10.05)+...+(4-2.5)(9.2-10.05) = -7.5
+\end{gather*}
+Then,
+\begin{gather*}
+    b_1 = S_{xy}/S_{xx} = -7.5/5 = -1.5 \\
+    b_0 = \Bar{y}-b_1\Bar{x} = 10.05 - (-1.5)(2.5) = 13.8
+\end{gather*}
+So estimated regression line is;
+\begin{gather*}
+    \hat{G}(x) = b_0 + b_1x = 13.8 -1.5x
+\end{gather*}
+Hence slope is -1.5, and intercept is 13.8 .
+\end{document}
+

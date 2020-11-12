@@ -1,0 +1,178 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{amsmath}
+
+
+\usepackage[hmargin=3cm,vmargin=6.0cm]{geometry}
+%\topmargin=0cm
+\topmargin=-2cm
+\addtolength{\textheight}{6.5cm}
+\addtolength{\textwidth}{2.0cm}
+%\setlength{\leftmargin}{-5cm}
+\setlength{\oddsidemargin}{0.0cm}
+\setlength{\evensidemargin}{0.0cm}
+
+%misc libraries goes here
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning}
+
+\begin{document}
+
+\section*{Student Information } 
+%Write your full name and id number between the colon and newline
+%Put one empty space character after colon and before newline
+Full Name : Furkan Göksel \\
+Id Number : 2237436 \\
+
+% Write your answers below the section tags
+\section*{Answer 1}
+
+\subsection*{a.}
+$P(Z=0 \; | \; X=5, Y=10 ) = \dfrac{P(Z=0 \cap X =5,Y=10)}{P(X=5,Y=10)}$ \\ \\
+In order to calculate $P(Z=0 \; \cap \; X =5,Y=10)$ from joint distribution we calculate $P_{(x,y,z)}(5,10,0) = 0.075$ and to find $P(X=5,Y=10)$ we have to calculate $\sum_{z}P_{(x,y,z)}(5,10,z) = 0.075+0.050 = 0.125$ so the result is $\frac{0.075}{0.125} = 0.6$
+\subsection*{b.}
+To find marginal distribution of P(X = x) we have to calculate (from addition rule) $\sum_{y}\sum_{z}P_{(x,y,z)}(x,y,z)$
+\begin{equation} 
+\begin{split}
+P(X=3) = 0.025+0.025+0.03+0.02+0.05+0.15 = 0.3 \\
+P(X=5) = 0.075+0.050+0.025+0.030+0.020+0.2 = 0.4 \\
+P(X=7) = 0.04+0.06+0.025+0.050+0.025+0.1 = 0.3 \\
+\end{split}
+\end{equation}
+To verify let's check $\sum_xP_x(x) = 0.3+0.4+0.3=1$
+\subsection*{c.}
+$E_X[X]= \sum_x(xP(x))$, so $E_X[x] = 3*0.3+5*0.4+7*0.3 = 5$ \\
+$Var_X[X] = \sum_x(x-\mu)^2P(x) = (3-5)^2*0.3+(5-5)^2*0.4+(7-5)^2*0.3 =2.4$
+\subsection*{d.}
+From the Joint distribution and conditional probability rules, it is given the fact that Z = 1 so, we just calculate
+$\dfrac{P(x \cap Z=1)}{P(Z=1)}$ \\
+$P(Z=1)=\sum_{y}P_{(x,y,z)}(x,y,1) = 0.025+0.050+0.06+0.02+0.03+0.05+0.15+0.2+0.1=0.685$ \\
+For marginal distribution of  $P(X\cap Z=1)$ $\sum_{y}P_{(x,y,z)}(x,y,1)$:
+\begin{equation} 
+\begin{split}
+P(X=3) = 0.025+0.02+0.15 = 0.195 \\
+P(X=5) = 0.050+0.030+0.2 = 0.280 \\
+P(X=7) = 0.06+0.050+0.1 = 0.210 \\
+\end{split}
+\end{equation}
+Hence ; \\
+$ P(X=3 | Z=1) = \dfrac{0.195}{0.685}= 0.285$ \\ \\
+$ P(X=5 | Z=1) = \dfrac{0.280}{0.685} = 0.409$ \\ \\
+$ P(X=7 | Z=1) = \dfrac{0.210}{0.685} = 0.306$ \\ \\
+\subsection*{e.}
+$E_{[X | Z=1]}= \sum_x(xP(x \; | \; Z =1)) = 3*0.285+5*0.409+7*0.306 = 5.042$ \\
+$Var_{[X | Z=1]} = \sum_x(x-\mu)^2P(x \; | \; Z =1) = (3-5.042)^2*0.285+(5-5.042)^2*0.409+(7-5.042)^2*0.306 = 2.3622$
+\section*{Answer 2}
+
+\subsection*{a.}
+We know that cumulative distribution of these converge to 1. So we can say that \\
+$F_x(\infty) = c_1\sum_{k=1}^{\infty}(2^{-k}) = 1 $ then we know that from geometric series test $\sum_{k=1}^{\infty}(2^{-k}) = 1$ so $c_1 = 1$ \\
+$F_y(\infty = c_2\sum_{k=1}^{\infty}(\dfrac{2^{-k}}{k}) = 1$ then by the ratio test, the series converges to $log2$ and $c_2 = 1/log2 = 1.4427$
+\subsection*{b.}
+Since $c_1 = 1$, P(X is even)$= P(2)+P(4)+P(6)+P(8)+..= \sum_{k=1}^{\infty}(2^{-2k}) =\dfrac{1}{3}$
+\subsection*{c.}
+From Bayes Formula $P(X+Y=6 | $ X is odd) = $\dfrac{P(X  \; \;is\; \; odd | \; X+Y=6 )P(X+Y=6)}{P(X \; \; is \; \;odd )}$ \\
+P(X is odd) = 1- P(X is even) = $\dfrac{2}{3}$ \\
+P(X+Y=6) = $P_X(1)P_Y(5)+P_X(2)P_Y(4)+P_X(3)P_Y(3)+P_X(4)P_Y(2)+P_X(5)P_Y(1) = 0.051$ \\ \\
+$P(X \; \;is\; \; odd \; | \; X+Y=6 ) = \dfrac{P(X \; \;is\; \; odd \; \cap X+Y=6 )}{P(X+Y=6)}$ = $\dfrac{0.345}{0.051}=0.676$ \\ \\
+$\dfrac{P(X  \; \;is\; \; odd | \; X+Y=6 )P(X+Y=6)}{P(X \; \; is \; \;odd )} = \dfrac{0.676*0.051}{2/3} = 0.051$
+\subsection*{d.}
+Choosing two ball is ${1000}\choose{2}$ = 499500. \\
+Then for $b_1+b_2=6$, our probabilities are $P_x(1)P_y(5)+P_x(2)P_y(4)+P_x(4)P_Y(2)+P_x(5)P_Y(1)=0.044$ (There is no 3-3 possibility because balls are unique.) 
+Then our result is $\dfrac{0.044}{499500}=0.000000088$ (from bayes).
+\section*{Answer 3}
+
+\subsection*{a.}
+Random variables X and Y are independent if $P_{(X,Y)}(x,y) = P_X(x)P_Y(y)$ for all values of x and y. This means, events \{X = x\} and \{Y = y\} are independent for all x and y. So just one counter example is enough. When we looked the $P_{(X,Y)}(3,10) = 0.05$ and from their joint distributions, $P_Y(Y=10) = 0.025+0.025+0.075+0.050+0.04+0.06 = 0.275$ and $P_X(X=3) = 0.3$ (from question 1) and $0.3*0.275 = 0.0825 \neq 0.05$, hence they are not independent.
+\subsection*{b.}
+If event A independent of itself, we can say that \\
+\begin{gather*} 
+P(A \cap A') = P(A)P(A')
+\end{gather*}
+from there we know that $P(A \cap A') = 0$ then our equation becomes 
+\begin{gather*}
+P(A)P(A') = 0
+\end{gather*}
+Since $P(A') = 1 - P(A)$ our equation equals to
+\begin{gather*}
+P(A)(1-P(A)) = 0
+\end{gather*}
+in order to get 0, P(A) must be equal either 1 or 0. Hence we proved that if event A is  independent of itself, then P(A) is either 1 or 0. (P(A') means complement of P(A)) 
+\subsection*{c.}
+If two events are independent then $P(A\cap B) = P(A)P(B)$ holds. \\
+If P(A) = 0 we can say that $P(A\cap B) = 0$ and then $P(A \cap B) = 0 = P(A) = P(A)P(B)$ \\
+If P(A) = 1 then P(A') = 0 (P(A') = 1-P(A)). So we can easily say that $P(A\cap B) = P(A \cap B) + P(A' \cap B)$ (since $P(A' \cap B)$ is 0 nothing changes) and then it is equal to :
+\begin{gather*}
+P((A \cap B) \cup (A' \cap B)) = P((A\cup A')\cap B) \\
+=P(1 \cap B) = P(B) \\
+=P(B).1 = P(B).P(A)
+\end{gather*}
+Hence $P(A \cap B) = P(A)P(B)$. So we have proved that If event A have P(A) = 0 or 1, then A and an arbitrary event B are independent.
+\section*{Answer 4}
+
+\subsection*{a.}
+From conditional probability: 
+\begin{gather*}
+P(G = n-1+m | G > n-1 ) = \dfrac{P((G = n-1+m )\cap (G > n-1))}{P(G > n-1)} \\ \\
+P((G = n-1+m )\cap (G > n-1)) = P(G = n-1+m) = p(1-p)^{n+m-2} \\
+P(G > n-1) = P(n) + P(n+1) + P(n+2).. = p(1-p)^{n-1}+p(1-p)^{n}.. \\
+=  p(1-p)^{n-1}(1+(1-p)+(1-p)^2..) = p(1-p)^{n-1}\dfrac{1}{1-(1-p)}=(1-p)^{n-1} \\
+\end{gather*}
+Hence;
+\begin{gather*}
+P(G = n-1+m | G > n-1 ) = \dfrac{p(1-p)^{n+m-2}}{(1-p)^{n-1}} =p(1-p)^{m-1} = P(G=m)
+\end{gather*}
+\subsection*{b.}
+$F(n) = P(X \leq n)$ we can say that $P(X \leq n) = 1 - P(X>n)$ and it is equal to $1-\sum_{w=n+1}^\infty(p.(1-p)^{w-1}$ and then
+\begin{gather*} 
+F(n)= 1-\sum_{w=n+1}^\infty(p.(1-p)^{w-1} \\
+    =1-p.(1-p)^n(1+(1-p)+(1-p)^2+..) \\
+    =1-p(1-p)^n[\dfrac{1}{1-(1-p)}] \\
+    =1-(1-p)^n
+\end{gather*}
+Hence $F(n) = 1-(1-p)^n$
+\subsection*{c.}
+In order to get 4 of sum of dices we have to get 112,121,211 and it is equal to $\dfrac{3}{6.6.6} = \dfrac{1}{72}$ then
+\begin{gather*} 
+P(65 \leq G \leq 75) = F(75) - F(64) \\
+=(1-(1-\dfrac{1}{72})^{75})-(1-(1-\dfrac{1}{72})^{64}) = 0.0582
+\end{gather*}
+\section*{Answer 5}
+
+\subsection*{a.}
+In binomial distribution, we can think this problem like 20,000 try and exactly 3 success. And from given information we know that P(Mutation)=$\dfrac{1}{10,000}$ ,so from our formula we get that $\binom{20,000}{3}.(\dfrac{1}{10,000})^3.(1-\dfrac{1}{10,000})^{20,000-3}=0.1804$
+\subsection*{b.}
+I chose the poisson distribution, because binomial distribution can be approximated to poisson distribution when probability of success is small and number of trials is large and (n $\geq 30, p \leq 0.05$) get parameter $\lambda = np$ so $\lambda = \dfrac{1}{10000}*20000 = 2$ and from poisson distribution 
+\begin{gather*} 
+\dfrac{e^{-\lambda } \lambda^k}{k!} = \dfrac{e^{-2}2^3}{3!} = 0.1804
+\end{gather*}
+We get same accurance because when number of trials are big, the result is more accurate.
+\section*{Answer 6}
+
+\subsection*{a.}
+
+Since $P_O(k;\lambda) = \dfrac{e^{-\lambda} \lambda^k}{k!} $ For $E(O^n)$
+\begin{equation} 
+\begin{split}
+E(O^n) = \sum_{k=0}^{\infty}k^nP(O=k) = \sum_{k=0}^{\infty}k^n\dfrac{e^{-\lambda} \lambda^k}{k!}= \sum_{k=1}^{\infty}k^{n-1}\dfrac{e^{-\lambda} \lambda^k}{(k-1)!} = \lambda \sum_{k=1}^{\infty}k^{n-1}\dfrac{e^{-\lambda} \lambda^{k-1}}{(k-1)!}
+\end{split}
+\end{equation}
+Now let's shift our index to 0.
+\begin{equation} 
+\begin{split}
+\lambda \sum_{k=0}^{\infty}(k+1)^{n-1}\dfrac{e^{-\lambda} \lambda^{k}}{k!}
+\end{split}
+\end{equation}
+And this equation is exactly equal to $\lambda E[(O+1)^{n-1}]$
+\subsection*{b.}
+According to our formula, $E[0^3] = \lambda E[(O+1)^2]$. Now let's take square of it $\lambda E[O^2+2O+1]$ and we know that from definiton, $E[O^2+2O+1] = E[O^2]+2E[O]+1$. And let's calculate $E[0^2]$ and $E[0]$ from our formula:
+\begin{equation} 
+\begin{split}
+E[0] = \lambda E[1^0] = \lambda \\
+E[0^2] = \lambda E[(O+1)] = \lambda (E[O] + E[1]) = \lambda ( \lambda +1) 
+\end{split}
+\end{equation}
+Hence $E[0^3]$ is equal to $\lambda((\lambda ^2 +\lambda)+2\lambda +1 ) = \lambda ^3 + 3\lambda ^2 +\lambda $
+
+\end{document}

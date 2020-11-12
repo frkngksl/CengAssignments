@@ -1,0 +1,160 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{amsmath}
+
+
+\usepackage[hmargin=3cm,vmargin=6.0cm]{geometry}
+%\topmargin=0cm
+\topmargin=-2cm
+\addtolength{\textheight}{6.5cm}
+\addtolength{\textwidth}{2.0cm}
+%\setlength{\leftmargin}{-5cm}
+\setlength{\oddsidemargin}{0.0cm}
+\setlength{\evensidemargin}{0.0cm}
+
+%misc libraries goes here
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning}
+
+\begin{document}
+
+\section*{Student Information } 
+%Write your full name and id number between the colon and newline
+%Put one empty space character after colon and before newline
+Full Name : Furkan Göksel \\
+Id Number : 2237436 \\
+
+% Write your answers below the section tags
+\section*{Answer 1}
+
+\subsection*{a.}
+Since picking real number at random from given interval is uniform distribution, we will use uniform distribution density function, and it is constant and equals to 
+\begin{gather*} 
+\dfrac{1}{100-10}=\dfrac{1}{90} \;\;\;\;\;\;\; \text{for 10$<$x$<$100} \\
+0 \;\;\;\;\;\;\;\;\;\;\;\;\;\; \;\;\;\; \;\;\;\;\; \text{otherwise}
+\end{gather*}
+and for an event I we should calculate P\{$20<x<120$\} and we know that this is calculated from CDF and for continous random variables we calculate $\int_{a}^{b} f(x) dx$ hence,
+\begin{gather*}
+    \int_{20}^{100} \dfrac{1}{90} dx + \int_{100}^{120} 0 \; dx = \dfrac{100}{90}-\dfrac{20}{90} = \dfrac{80}{90} \approx 0.89
+\end{gather*}
+\subsection*{b.}
+Since expected value of continous random variables is $\int_{}^{}xf(x) dx$ we calculate
+\begin{gather*}
+    \int_{10}^{100} xf(x) dx = \int_{10}^{100} x \dfrac{1}{90} dx = (\dfrac{x^2}{180} + C)\Big|_{10}^{100} = \dfrac{9900}{180} = 55
+\end{gather*}
+\subsection*{c.}
+First, our equation is equal to $(x-40)(x-70)>0$ and it's roots are 40 and 70, and from that roots our intervals are $[10,40) \bigcup (70,100]$ and hence we just calculate $P\{10\leq x<40\} \bigcup P\{70<x\leq 100\}$, hence we calculate,
+\begin{gather*}
+\int_{10}^{40} \dfrac{1}{90}dx + \int_{70}^{100} \dfrac{1}{90}dx = (\dfrac{x}{90}+C)\Big|_{10}^{40}+(\dfrac{x}{90}+C)\Big|_{70}^{100} = \dfrac{60}{90} \approx 0.67
+\end{gather*}
+\subsection*{d.}
+In order to find C, we know that cumulative distributions functions converges to 1, so from that interval,
+\begin{gather*}
+\int_{10}^{100} Cx dx =  (\dfrac{Cx^2}{2}+D)\Big|_{10}^{100} = \dfrac{9900C}{2} = 1 \\
+C = \dfrac{2}{9900} = \dfrac{1}{4950} \approx 0.0002
+\end{gather*}
+And from expected value formula,
+\begin{gather*}
+    \int_{10}^{100} xf(x) dx = \int_{10}^{100} Cx^2 dx = \dfrac{C}{3}(x^3\Big|_{10}^{100}) = \dfrac{999000}{14850} \approx 67.27
+\end{gather*}
+\section*{Answer 2}
+
+\subsection*{a.}
+When we find that a die roll comes up even number it means that first we produce a dice and then probability of getting an even number from this dice, it means that $\int df_D(d)\partial d$.
+\begin{gather*}
+    \int_{0}^{1}d(de^d)\partial d = \int_{0}^{1} d^2e^d\partial d \\
+    = \text{(by using integration by parts)} (e^d(d^2-2d+2)+C)\Big|_{0}^{1} =e(1-2+2)-e^0(2) \\
+    =e-2 \approx 0.72
+\end{gather*}
+\subsection*{b.}
+From conditional probability given the die roll shows up even, the conditional pdf of D is 
+\begin{gather*}
+    P(d \;|\; D) = \dfrac{P(D\;|\;d)P(d)}{P(D)} \\
+    = \dfrac{d(de^d)}{e-2} \text{   (d $\in [0,1]$)}
+\end{gather*}
+
+\subsection*{c.}
+Using the pdf we found in part b) because assuming the very first die roll shows up even means that given the die roll shows up even, and also the same way from part a) we get,
+\begin{gather*}
+    \int_{0}^{1}d \frac{(d^2e^d)}{e-2}\partial d = \int_{0}^{1}\frac{(d^3e^d)}{e-2}\partial d \\
+    = \text{ (by using integration by parts)} - \dfrac{2(e-3)}{e-2} \approx 0.7844
+\end{gather*}
+
+
+
+
+
+\section*{Answer 3}
+From estimating proportions with a given precision topic, we have a formula such that
+\begin{gather*}
+    n \geq 0.25(\dfrac{z_{\alpha/2}}{\Delta})^2
+\end{gather*}
+Using this formula we can estimate necessary sample size. First of all let's find $z_{\alpha/2}$
+\begin{gather*}
+    1-\alpha = 0.9\\
+    \alpha = 0.1 \\
+    \alpha/2 = 0.05 \\
+    z_{0.05} = q_{0.95} = 1.645 \text{   (From the standard normal distribution table)}
+\end{gather*}
+Then we know that our $\Delta$ is equal to 0.1 and hence,
+\begin{gather*}
+    n \geq 0.25 ( \dfrac{1.645}{0.1})^2 \\
+    n \geq 67.65
+\end{gather*}
+Hence our sample size should be 68.
+\section*{Answer 4}
+In order to find X's mean,
+\begin{gather*}
+    E(X) = E(\sum_{i=1}^n a_iX_i)=E(a_1X_1+a_2X_2+...+a_nX_n) = a_1E(X_1)+a_2E(X_2)+...+a_nE(X_n) \\
+    =a_1\mu_1+a_2\mu_2+...+a_n\mu_n = \sum_{i=1}^n a_i \mu_i
+\end{gather*}
+In order to find X's variance,
+\begin{gather*}
+    Var(X) = Var(\sum_{i=1}^n a_iX_i)=Var(a_1X_1+a_2X_2+...+a_nX_n)  \\
+    = a_1^2Var(X_1)+a_2^2Var(X_2)+...+a_n^2Var(X_n) \\
+    =a_1^2\sigma_1^2+a_2^2\sigma_2^2+...+a_n^2\sigma_n^2 = \sum_{i=1}^n a_i^2 \sigma_i^2
+\end{gather*}
+\section*{Answer 5}
+According to method of maximum likelihood,to maximize the likelihood we should take derivative of $P(X)=\prod_{i=1}^{n}P(X_i)$ with respect to parameter, and make equal to 0, $\dfrac{d}{d\theta}P(X) = 0$ and to make this operation more easier, firstly take the logarithms of the given equation.
+\begin{gather*}
+    lnP(x) = xln\theta - lnx! + -\theta lne
+\end{gather*}
+Then in order to product all of the $X_i$ we use this equality $ln\prod_{i=1}^{n}P(X_i)=\sum_{i=1}^{n}lnP(X_i)$,so now this equation comes to 
+\begin{gather*}
+  lnP(X) =  \sum_{i=1}^{n}X_i(ln\theta ) - C +\sum_{i=1}^{n}(-\theta ) = \sum_{i=1}^{n}X_i(ln\theta ) - C -n \theta 
+\end{gather*}
+where C = $\sum_{i=1}^{n}lnX_i!$ is a constant that doesn't contain the unknown parameter $\theta$, so when taking derivative with respect to $\theta$ it will equal to 0, and when taking derivative with respect to $\theta$ and make it to equal 0, we get:
+\begin{gather*}
+    \sum_{i=1}^{n}X_i (\dfrac{1}{\theta}) - n = 0 
+\end{gather*}
+And we solve the equation, 
+\begin{gather*}
+    \hat{\theta} = \dfrac{\sum_{i=1}^{n}X_i}{n}
+\end{gather*}
+where $\dfrac{\sum_{i=1}^{n}X_i}{n}$ is given by the average of the samples in the given observation set of discrete random variable X.
+\section*{Answer 6}
+
+\subsection*{a.}
+Unbiasedness means that in a long run, collecting a large number of samples and computing estimator $\hat{\theta}$ from each of them we hit the unknown parameter $\theta$ exactly. So an estimator $\hat{\theta}$ is unbiased for a parameter $\theta$ if its expectation equals the parameter. So,
+\begin{gather*}
+    E(\hat{\theta}) = E(\dfrac{X_1+X_2+X_3..+X_n}{n}) = \dfrac{EX_1+EX_2+EX_3+...+EX_n}{n} = \dfrac{n\theta}{n} = \theta
+\end{gather*}
+Since in Poisson Distribution $E(X)=\theta$. So it is unbiased.
+\subsection*{b.}
+For consistency $P\{|\hat{\theta}-\theta|>\epsilon\} \to 0$ as $n \to \infty$ for any $\epsilon > 0$. So, using Chebyshev's inequality (since $\mu = E(X) = \theta$ in Poisson)
+\begin{gather*}
+    P\{|\hat{\theta}-\theta|>\epsilon\} = P\{\Bar{X}-\mu\} \leq \dfrac{Var(\Bar{X})}{\epsilon^2}
+\end{gather*}
+where $Var(\Bar{X})$ is 
+\begin{gather*}
+    Var(\dfrac{X_1+..+X_n}{n}) = \dfrac{VarX_1+..+VarX_n}{n^2} = \dfrac{n\theta}{n^2} = \dfrac{\theta}{n}
+\end{gather*}
+Since Var(X) = $\theta$ in Poisson distribution.Hence,
+\begin{gather*}
+    P\{|\hat{\theta}-\theta|>\epsilon\} = P\{\Bar{X}-\mu\} \leq \dfrac{Var(\Bar{X})}{\epsilon^2} = \dfrac{\theta/n}{\epsilon^2} \to 0 \text{ as n}\to \infty
+\end{gather*}
+So it is consistent.
+\end{document}
+
+

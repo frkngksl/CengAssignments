@@ -1,0 +1,57 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{amsmath}
+
+
+\usepackage[hmargin=3cm,vmargin=6.0cm]{geometry}
+%\topmargin=0cm
+\topmargin=-2cm
+\addtolength{\textheight}{6.5cm}
+\addtolength{\textwidth}{2.0cm}
+%\setlength{\leftmargin}{-5cm}
+\setlength{\oddsidemargin}{0.0cm}
+\setlength{\evensidemargin}{0.0cm}
+
+%misc libraries goes here
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning}
+
+\begin{document}
+
+\section*{Student Information }
+%Write your full name and id number between the colon and newline
+%Put one empty space character after colon and before newline
+Full Name : Furkan Göksel  \\
+Id Number : 2237436 \\
+
+% Write your answers below the section tags
+\section*{Answer 1}
+Firstly, we need to determine Monte Carlo Simulation size, and it is calculated by this formula:
+\begin{gather*}
+    N \geq 0.25(\dfrac{z_{a/2}}{\epsilon})^2
+\end{gather*}
+So from the question we know that $\epsilon = 0.005$, and in order to find $z_{a/2}$, we calculate:
+\begin{gather*}
+    1-\alpha = 0.95 \\
+    \alpha = 0.05 \\
+    \alpha / 2 = 0.025
+\end{gather*}
+So from the table know that $z_{0.025} = 1.960$ so when we substitute:
+\begin{gather*}
+    N \geq 0.25(\dfrac{1.96}{0.005})^2 \\
+    N \geq 38416
+\end{gather*}
+Then from this result we know that we will simulate 38416 times. After then, we will calculate how many creatures we will catch. It is coming from Poisson distribution, but given parameter is for one hour. In order to find 7 hours, we multiply $\lambda$ with 7. So our $\lambda$ is 35. Then we can generate our creature size from poisson distribution for parameter $\lambda = 35$. Then for each creature we create Speed and Weight values from given joint density by using rejection method.In rejection method we determine the limit points are a,b,a2,b2,c.($a<w<b$, $a2<s<b2$, $0<f(w,s)<c$) we know that a is 0, b goes to infinity but when b becomes 10, it converges, so we determine a=0, b=10. Similarly for s it is equal to a2=0,b2=10.For c, we determine the max point of given function. When w=1, and s=1 function gets max value, so it is f(1,1) which is $e^{-2}$, and then we count each creature that has $W \geq 2S$ . We simulate these operations 38416 times, and hold result for each simulation in totalNumber array. Then we calculate probabilities by looking mean of how many simulation have more than 8 creature that has  $W \geq 2S$. Therefore probabilty will be this result.
+\section*{Answer 2}
+In this question monte carlo size will be same. But our number of creature will be different because this time question asks for in 10 hours. So given $\lambda$ will be multiplied by 10. Hence new lambda for this part is $10*5=50$. Then from joint probability we will calculate marginal density for w:
+\begin{gather*}
+    f(w,s) = wse^{-w-s} \\
+    f(w) = \int^{\infty}_0 wse^{-w-s}ds = we^{-w}
+\end{gather*}
+So again firstly we calculate how many creatures we will catch from Poisson Distribution. And then using marginal density, we calculate each pickle creature' weight by using rejection method. For rejection method the limit points are a,b,c ($a<w<b$, $0<f(w)<c$).For a we know that is 0, b is 10 since it converges after the 10 so I can assume it is 10. For c, it is equal to max point of $f(w)$, and it is equal to w=1, hence c is $f(1)=e^{-1}$. Then we will sum these coming random variables and save them to the array. This array (in the code TotalNumberForPart2) holds total weights for each simulation. Then, eventually by calculating mean of this sample, we can estimate total weight of the creatures caught in 10 hours.
+\section*{Answer 3}
+Again using the Monte Carlo Simulation size that we calculated in part a, each simulation we generate two random variable one comes from Exponential distribution and other comes from Normal distribution. For each simulation we calculate $\dfrac{2A+3B}{3+2|B|}$, and save the result to the array. Then at the end of all simulation, to estimate of $E[\dfrac{2A+3B}{3+2|B|}]$ we calculate the mean of our sample. Then this mean will be the result.
+\end{document}
+
+​

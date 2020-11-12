@@ -1,0 +1,27 @@
+0x6042f0 sayısına her 1den büyük eleman için kısacası her eleman için değeri
+xse (x-1)*8 ekliyor ve bunları stacke yerleştiriyor sırasıyla 6 kere her binin sizeı 8 bu arada double heralde aradaki farkları 16 kral her 1 16 farkettiriyor
+6308592-1 bunun +8indeki yere 2. (memorysinde 618 var)
+6308608-2 bunun +8indeki yere 3. (memorysinde 517 var)
+6308624-3 bunun +8indeki yere 4. (memorysinde 383 var)
+6308640-4 bunun +8indeki yere 5. (memorysinde 499 var)
+6308656-5 bunun +8indeki yere 6. (memorysinde 806 var)
+6308672-6 bunun +8indeki yere 0 konuluyor.print (314 var)
+
+burdayız : 0x00000000004012ec <+197>:	movq   $0x0,0x8(%rdx)
+
+diye gidiyor 
+
+1.deki 2.dekinden büyük olacak 1>2
+2.deki 3.den küçük olacak 3>2
+3.deki 4.dekinden büyük olacak 3>4
+4.deki 5.den küçük olacak 5>4
+5.deki 6.dan büyük olacak 5>6
+
+6-3-4-2-1-5 küçükten büyüğe
+
+
+4 3 2 6 5 1
+
+
+rbxte 1. tutuluyorsa 
+raxte 2. tutuluyor

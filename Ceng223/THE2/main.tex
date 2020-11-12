@@ -1,0 +1,206 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{amsmath}
+
+
+\usepackage[hmargin=3cm,vmargin=6.0cm]{geometry}
+%\topmargin=0cm
+\topmargin=-2cm
+\addtolength{\textheight}{6.5cm}
+\addtolength{\textwidth}{2.0cm}
+%\setlength{\leftmargin}{-5cm}
+\setlength{\oddsidemargin}{0.0cm}
+\setlength{\evensidemargin}{0.0cm}
+
+
+
+\begin{document}
+
+\section*{Student Information } 
+%Write your full name and id number between the colon and newline
+%Put one empty space character after colon and before newline
+Full Name : Furkan Göksel \\
+Id Number : 2237436 \\
+
+% Write your answers below the section tags
+\section*{Answer 1}
+\subsection*{a)}
+Assume that $(g \circ f)^{-1}(C_o) = x$ $(x \subseteq A)$ then by definiton of inverse functions: \\ \\ \\
+$(g\circ f)^{-1}(C_o) = x \implies C_o = (g\circ f)(x) = g(f(x))  \implies f(x) = g^{-1}(C_o) \implies x = f^{-1}(g^{-1}(C_o))$ \\ \\
+
+Hence $(g \circ f)^{-1}(C_o) = f^{-1}(g^{-1}(C_o))$
+\subsection*{b)}
+Assume that f is not injective. Then there are $a_1$ and $a_2$ ($a_1 \neq a_2$) such that $f(a_1) = f(a_2)$ ($f: A\to B$). Then: 
+\begin{equation} 
+\label{eq2}
+\begin{split}
+    g(f(a_1)) = g(f(a_2))\quad  (a_1 \neq a_2) \quad \bot
+\end{split}
+\end{equation} \\
+There is a contradiction because if $g\circ f$ is injective then $g(f(a_1)) \neq g(f(a_2))$. Hence assumption is not correct and $f$ has to be injective. \\ \\
+Also $g$ doesn't have to be injective. Assume that $b_1$,$b_2 \in B$ and $f(a_1) = b_1$, then $g(b_1)=X$ and $g(b_2)=X$ ($X \in C$). $g \circ f$ is still injective.
+\subsection*{c)}
+Assume that g is not surjective. By definition, $\exists a $ $(a \in C)$ such that there is no mapping function to it. 
+\begin{equation} 
+\label{eq3}
+\begin{split}
+    g \circ f = g(f(x))\quad   \quad
+\end{split}
+\end{equation} \\
+For this reason if g is not surjective then there is a contradiction since $g \circ f$ is subjective. Hence our first assumption is false then g has to be surjective. \\ \\
+Also f doesn't have to be surjective. Assume that $b_1,b_2 \in B$ and $f(c) = b_1$ ($c\in A$) but there is no f for $b_2$. Since $g(b_1) = x$ ($x\in C$). Then $g \circ f$ is still surjective. Hence f doesn't have to be surjective. 
+
+\section*{Answer 2}
+\subsection*{a)}
+Assume that f is not injective, this means that $f(a)=f(b)$ ($a,b \in A$) such that $a\neq b$ then by definition of left inverse $g \circ f(a) = a$ and $g \circ f(b) = b$. However, at the beginning we assume that $f(a)=f(b)$ then $a = b$. This is $\bot$. Hence our first assumption is false and f is injective. \\ \\
+Assume that f is not surjective, this means that there exists b ($b \in B$) such that there is no mapping function f to it. However, By definition of left inverse, If $h(x) = y$ then $f(y) = x$ this means that all elements in B mapping themselves. This is $\bot$, hence our first assumption is false and f is surjective.
+\subsection*{b)}
+A function f can have more than one left inverse. Necessary condition for left inverse is  that all elements in the domain of f have to be returned itself after mappings. An example is the following: f:$\{a,b\} \to \{a,b,c\}$ and f(a) = b, f(b) = c, and g:$\{a,b,c\} \to \{a,b\}$ and g(a) = b, g(c) = b, g(b) = a. Another g':$\{a,b,c\} \to \{a,b\}$ and g'(a) = a, g'(b) = a, g'(c) = b. Both are left inverse. Hence f can have more than one left inverse. \\ \\
+Also a function f can have more than one right inverse. An example for this situation is following: f:$\{a,b\} \to \{a\}$ such that f(a)=f(b)=a, and h:$\{a\} \to \{a,b\}$ and h(a) = a. Another h':$\{a\} \to \{a,b\}$ and h(a) = b. Then $f\circ h(a) = a$ and $f\circ h'(a) = a$. Hence f can have more than one right inverse.
+\subsection*{c)}
+We have proved above that if $f$ has a left inverse, $f$ is injective; and if $f$ has a right inverse, $f$ is surjective. Then $f$ is bijective hence $f$ has inverse function $f^{-1}$. Firstly, we can say that $g \circ f \circ h = g \circ f \circ h$ and by associativity of composition functions $(g \circ f) \circ h = g \circ (f \circ h)$ and this equal to $i_A \circ h = g \circ i_B$. As a result $h = g$. Moreover $f \circ f^{-1}(x) = x$ and $f \circ h(x) = x$ then $f^{-1} = h$. Therefore $h = g = f^{-1}$ .
+\section*{Answer 3}
+Bijection means both surjection and injection. To show f is injective:
+
+Hence f is injective. To show f is surjective:\\ \\
+Assume that $(b,c) \in A$  then if $f(x,y)=(b,c)$ ($ x,y \in Z^+$x$Z^+$), f is surjective.
+\begin{equation} 
+\label{eq3}
+\begin{split}
+    (x+y-1,y) = (b,c) \\
+    0<x+y-1 \quad 0<y 
+\end{split}
+\end{equation} \\
+$0<x+y-1$ and  $0<y$ since $x$ and $y$ both may be smallest 1 by definition of Cartesian Product ($Z^+$x$Z^+$). Then we can find (b,c) (for example b=1 c=1 if y =1 and x = 1).Therefore f is surjective.\\
+Hence f is bijection.\\ \\
+Let's show g is injective:
+\begin{equation} 
+\label{eq3}
+\begin{split}
+    g(x_1,y_1) = g(x_2,y_2) \\
+    \frac{1}{2}(x_1-1)x_1 +y_1 = \frac{1}{2}(x_2-1)x_2 + y_2\\
+    \frac{x_1^2-x_1+2y_1}{2}-\frac{x_2^2-x_2+2y_2}{2} = 0 \\
+    (x_1-x_2)(x_1+x_2) +(x_2-x_1) +2y_1-2y_2 = 0 \\
+    (x_1-x_2)(x_1+x_2-1) + 2 (y_1-y_2) = 0 \\
+    x_1 = x_2 \quad and \quad y_1 =y_2 \\
+\end{split}
+\end{equation} \\
+$ x_1+x_2-1 \neq 0 $ since $x_1$ and $x_2$ may be the smallest 1 by the definition of set A. To show g is surjective: \\ \\
+Assume that $b \in Z^+$ then if $g(x,y)=b$ ($ x,y \in A$), g is surjective.
+\begin{equation} 
+\label{eq3}
+\begin{split}
+    \frac{1}{2}(x-1)x+y = b \\
+    0 \leq\frac{1}{2}(x-1)x \quad and \quad 0<y
+\end{split}
+\end{equation} \\
+Then we can find b (for example b = 1 if x = 1 and y = 1). Hence g is bijection.
+\section*{Answer 4}
+\subsection*{a)}
+
+\subsection*{b)}
+The union of algebraic numbers and transcendental numbers is real numbers ($R=A\bigcup T$). The real numbers are uncountable, and we know that the union of an uncountable set and an countable set is uncountable, and also the union of two countable set is countable. Then if T is a countable set, then real numbers are countable since $R=A\bigcup T$. But this is not true and it is $\neq$. Therefore our assumption is false and transcendental numbers are uncountable.
+\section*{Answer 5}
+By definition, $n$ ln $n = \Theta(k)$ can be written as \\ \\
+\begin{equation} 
+\label{eq1}
+\begin{split}
+0 \leq C_1k \leq n ln(n) \leq C_2k             
+\end{split}
+\end{equation}
+\\ where $C_1$ and $C_2$ are positive constants. When we divide this equation with ln$(k)$, we get:
+\begin{equation} 
+\label{eq1}
+\begin{split}
+0 \leq \frac{C_1k}{ln (k)} \leq n\frac{ln (n)}{ln (k)} \leq \frac{C_2k}{ln (k)}             
+\end{split}
+\end{equation}
+\\From left hand side of first equation we can get $C_1k \leq n ln(n) < n^2$ because $ln(n)=O(n)$ . Then we can make this logarithm operation:
+\begin{equation} 
+\label{eq1}
+\begin{split}
+ln(C_1k)<ln(n^2) \implies ln(C_1)+ln(k) < 2ln(n) \implies ln(k) < 2ln(n)-ln(C_1) \implies \frac{ln(k)}{ln(n)} < 2 - \frac{ln(C_1)}{ln(n)}
+\end{split}
+\end{equation}
+The last part of the above equation is less than 2. Using previous equations we can say that:
+\begin{equation} 
+\label{eq1}
+\begin{split}
+n = n \frac{ln(n)}{ln(k)} \frac{ln(k)}{ln(n)} < C_2\frac{k}{ln(k)}2
+\end{split}
+\end{equation}
+$2C_2$ can be considered as $C_3$ because it is just a witness variable.Hence this equation becomes:
+\begin{equation} 
+\label{eq1}
+\begin{split}
+0 \leq \frac{C_1k}{ln (k)} \leq n \leq \frac{C_3k}{ln (k)}  
+\end{split}
+\end{equation}
+\\ And it is equal to $n =\Theta(\frac{k}{ln(k)})$
+\section*{Answer 6}
+\subsection*{a)}
+6's divisors (other than itself) are 1,2,3 and $1+2+3=6$. Hence 6 is a positive integer perfect. \\ \\ \\
+28's divisors (other than itself) are 1,2,4,7,14 and $1+2+4+7+14 =28$. Hence 28 is a positive integer perfect.
+\subsection*{b)}
+If $2^P-1$ is a prime number, then from left side $1,2,4,8,.....,2^{P-1}$ is divides the given equation. Also from the right hand side (means that divisors involves $2^{P}-1$)  $2^{P-1},2(2^{P}-1),4(2^{P}-1),....,2^{P-2}(2^{P}-1)$ divides the given equation (because $(2^{P}-1)$ is prime, there is no divisor for it except itself) . Since $2^{P-1}(2^{P-1})$ is the given equation we don't add to the sum because by definition we need to show the sum of the divisor other than itself. Then sum these two number sets: (Note that $\sum_{i=0}^{n-1} 2^i = 2^n-1$)
+\begin{equation} 
+\label{eu_eqn}
+\sum_{i=0}^{P-1} 2^i + \sum_{j=0}^{P-2} (2^P-1)2^j = 2^P-1 + (2^p -1) (2^{P-1} -1) = 2^{P-1}(2^P-1)
+\end{equation}
+Hence given equation is perfect number.
+\section*{Answer 7}
+\subsection*{a)}
+\subsection*{\underline{Part I of the proof}}
+Assume that $gcd(m,n)|c_1-c_2$ (this means that $gcd(m,n)$ divides $c_1-c_2$). Then there is a k such that 
+\begin{equation} 
+\label{eq7}
+\begin{split}
+c_1-c_2 \equiv k gcd(m,n)   
+\end{split}
+\end{equation} \\
+Then there exist s,t such that:
+\begin{equation} 
+\label{eq7}
+\begin{split}
+c_1-c_2 = k(sm+tn) = ksm+ktn 
+\end{split}
+\end{equation}\\
+Let $x = c_1-ksm = c_2+ktn$. Then x is a solution to the system of equations above since:
+\begin{equation} 
+\label{eq7}
+\begin{split}
+c_1-ksm \equiv c_1(mod m) \\
+c_2+ksn \equiv c_2(mod n)
+\end{split}
+\end{equation}
+\subsection*{\underline{Part II of the proof}}
+Assume that the linear system of the given equaitons have a solution then:(for some q and s)
+\begin{equation} 
+\label{eq7}
+\begin{split}
+x = c_1 +qm = c_2 + sn \\
+c_1-c_2 = sn-qm\\
+gcd(m,n) |sn-qm = c_1-c_2 
+\end{split}
+\end{equation}
+End of Proof...
+\subsection*{b)}
+Assume that $x_1$ and $x_2$ are our solutions, then 
+\begin{equation} 
+\label{eq7}
+\begin{split}
+    x_1 \equiv c_1 \quad (mod m)\quad x_2 \equiv c_1\quad (mod m) \\
+    x_1 \equiv c_2 \quad(mod n) \quad x_2 \equiv c_2 \quad(mod n)
+\end{split}
+\end{equation}\\
+If we subtract both side then 
+\begin{equation} 
+\label{eq7}
+\begin{split}
+    x_1-x_2 \equiv 0 \quad mod(m) \to x_1 \equiv x_2 \quad mod(m) \\
+    x_1-x_2 \equiv 0 \quad mod(n) \to x_1 \equiv x_2 \quad mod(n) \\
+\end{split}
+\end{equation}\\
+Then $m|x_1-x_2$ and $n|x_1-x_2$, so $x_1 - x_2$ is multiple both $m$ and $n$ .Then $x_1 - x_2 \equiv 0 \quad mod$ $ lcm(m,n)$. This means that $x_1 \equiv x_2$ mod $lcm(m,n)$. Hence solution is unique in the interval $[0,lcm(m,n)) $.
+\end{document}

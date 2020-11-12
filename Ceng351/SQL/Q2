@@ -1,0 +1,1 @@
+SELECT C.cid, SUM(S.totalAmount) FROM Account A, ShareOwned S,Customer C WHERE C.cid = A.cid AND A.accountNo = S.accountNo AND C.name LIKE '%t' GROUP BY C.cid ORDER BY C.cid;

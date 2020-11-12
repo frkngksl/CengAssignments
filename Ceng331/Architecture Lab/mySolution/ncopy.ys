@@ -1,0 +1,210 @@
+#/* $begin ncopy-ys */
+##################################################################
+# ncopy.ys - Copy a src block of len words to dst.
+# Return the number of positive words (>0) contained in src.
+#
+# Include your name and ID here.
+# Furkan Goksel
+# Describe how and why you modified the baseline code.
+# 1-First of all I added iaddq instruction and replace it with irmovq+sub/add instructions(if I didn't add iaddq I need to use these instructions which is redundant) and reduced these increment/decrement operations cost.
+# 2-I made 7x unrolling
+# 4-When we made loop unrolling we need to return and handle remaining items In the book, this has done with extra loop that increment by one by and handle this. With that way (I think) this causes again
+# misbranching, unnecessary increment and check operations. So if I can find the exact length I can handle it without using loop.
+# In order to achieve this, I used Jump table (inspired by switch case operations).We take correct jumping address from jtable by calculating offset. Moreover, we do this in reverse direction and with this way we can fall through,
+# and no need to jump.Therefore, I used this idea. However in y86 there is no indirect jump. Hence, I exploit the ret instruction (inspired by return oriented programming). Firstly I pushed the jtable value to the stack,
+# and then with calling ret instruction, I successfully updates my RIP.
+# 5-I try to avoid load use hazards by adding one instruction between them
+# 6- I slightly changed ret instruction to reduce the penalty between push and ret instruction. (Exact implementation details are in pipe-fulll.hcl)
+# 7-For the case where mrmovq+opq (for instance in calculating offset for jtable) I changed the forwarding order, instead of waiting, I forward m_valm to e_valA and e_valB (with checking destination and source registers).
+# (again implementation details are in pipe-hull.hcl)
+# 8-For the case where jle+mrmovq(actually any operation that doesn't set CC)+rmmovq+opq I realized that actually we can see the condition codes and make correct guess because rmmovq and mrmovq don't change the cc
+# (implementation details are in pipe-full.hcl).
+##################################################################
+# Do not modify this portion
+# Function prologue.
+# %rdi = src, %rsi = dst, %rdx = len
+ncopy:
+
+##################################################################
+# You can modify this portion
+	xorq %rax,%rax
+	iaddq $-7,%rdx
+	jle handleRemains
+
+Loop:
+	mrmovq (%rdi), %r8
+	andq %r8, %r8
+	mrmovq 8(%rdi), %r9
+	jle Npos1
+	iaddq $1, %rax
+Npos1:
+	andq %r9, %r9
+	rmmovq %r8, (%rsi)
+	mrmovq 16(%rdi), %r10
+	jle Npos2
+	iaddq $1, %rax
+
+Npos2:
+	andq %r10, %r10
+	rmmovq %r10, 16(%rsi)
+	mrmovq 24(%rdi), %r11
+	jle Npos3
+	iaddq $1, %rax
+
+Npos3:
+	andq %r11, %r11
+	rmmovq %r9, 8(%rsi)
+	mrmovq 32(%rdi), %r12
+	jle Npos4
+	iaddq $1, %rax
+
+Npos4:
+	andq %r12, %r12
+	rmmovq %r12, 32(%rsi)
+	mrmovq 40(%rdi),%r9
+	jle Npos5
+	iaddq $1, %rax
+
+Npos5:
+	andq %r9, %r9
+	rmmovq %r9, 40(%rsi)
+	mrmovq 48(%rdi),%rcx
+	jle Npos6
+	iaddq $1, %rax
+
+Npos6:
+	andq %rcx, %rcx
+	rmmovq %r11, 24(%rsi)
+	rmmovq %rcx, 48(%rsi)
+	jle LoopCheck
+	iaddq $1, %rax
+
+LoopCheck:
+	iaddq $56, %rdi
+	iaddq $56, %rsi
+	iaddq $-7, %rdx
+	jg Loop
+
+handleRemains:
+	iaddq $7, %rdx
+
+jumpTableCalculate:
+	addq %rdx, %rdx # 2*rdx Actually I thought to add new instruction imulq or bitwise shift but I don't know how to add a new instruction, So I handled that oldschool style
+	addq %rdx, %rdx # 4*rdx.
+	addq %rdx, %rdx # 8*rdx. Why I do this is addresses in jumptable is 8 byte. For this reason, If I want to reach length3 address I need to go to address jtable+24(3*8).
+	mrmovq JumpTable(%rdx), %r8  #I forwarded rdx value when addq in memory and mrmovq in execute.
+	pushq %r8 #To update rip.
+	ret #this is combination of load/use hazard and ret hazard. Penalty was three bubble. However, we know that the value is in the pushq, so I changed the pipe-full.hcl.Implementation detail is written there.
+	    #With this way penalty is 0.
+
+
+lengthIs7:
+	mrmovq 40(%rdi), %r9  #6th element
+	andq %r9,%r9
+	rmmovq %r9, 40(%rsi)
+	mrmovq 48(%rdi), %r10 #7th element
+	jle control_7_1
+	iaddq $1,%rax
+control_7_1:
+	andq %r10,%r10
+	rmmovq %r10, 48(%rsi)
+	jle lengthIs5
+	iaddq $1,%rax
+
+lengthIs5:
+	mrmovq 24(%rdi), %r9  #4th element
+	andq %r9,%r9
+	rmmovq %r9, 24(%rsi)
+	mrmovq 32(%rdi), %r10 #5th element
+	jle control_5_1
+	iaddq $1,%rax
+control_5_1:
+	andq %r10,%r10
+	rmmovq %r10, 32(%rsi)
+	jle lengthIs3
+	iaddq $1,%rax
+
+lengthIs3:
+	mrmovq 16(%rdi), %r10 #3th element
+	andq %r10,%r10
+	rmmovq %r10, 16(%rsi)
+	mrmovq 8(%rdi), %r9  #2th element
+	jle control_3_1
+	iaddq $1,%rax
+control_3_1:
+	andq %r9,%r9
+	rmmovq %r9, 8(%rsi)
+	jle lengthIs1
+	iaddq $1,%rax
+	jmp lengthIs1
+
+lengthIs6:
+	mrmovq 32(%rdi), %r9  #5th element
+	andq %r9,%r9
+	rmmovq %r9, 32(%rsi)
+	mrmovq 40(%rdi), %r10 #6th element
+	jle control_6_1
+	iaddq $1,%rax
+control_6_1:
+	andq %r10,%r10
+	rmmovq %r10, 40(%rsi)
+	jle lengthIs4
+	iaddq $1,%rax
+
+lengthIs4:
+	mrmovq 24(%rdi), %r9 #4th element
+	andq %r9,%r9
+	rmmovq %r9, 24(%rsi)
+	mrmovq 16(%rdi), %r10 #3th element
+	jle control_4_1
+	iaddq $1,%rax
+control_4_1:
+	andq %r10,%r10
+	rmmovq %r10, 16(%rsi)
+	jle lengthIs2
+	iaddq $1,%rax
+
+lengthIs2:
+	mrmovq 8(%rdi), %r9 #2th element
+	andq %r9,%r9
+	rmmovq %r9, 8(%rsi)
+	mrmovq (%rdi), %r10 #1th element
+	jle control_2_1
+	iaddq $1,%rax
+control_2_1:
+	andq %r10,%r10
+	rmmovq %r10, (%rsi)
+	jle Done
+	iaddq $1,%rax
+	jmp Done
+
+lengthIs1:
+	mrmovq (%rdi), %r10 #1th element
+	andq %r10,%r10
+	rmmovq %r10, (%rsi)
+	jle Done
+	iaddq $1,%rax
+
+
+##################################################################
+# Do not modify the following section of code
+# Function epilogue.
+Done:
+	ret
+
+
+.align 8 #Address of jump table will start at multiply of 8
+JumpTable:
+	.quad Done #stored as 8 byte
+	.quad lengthIs1
+	.quad lengthIs2
+	.quad lengthIs3
+	.quad lengthIs4
+	.quad lengthIs5
+	.quad lengthIs6
+	.quad lengthIs7
+
+##################################################################
+# Keep the following label at the end of your function
+End:
+#/* $end ncopy-ys */
