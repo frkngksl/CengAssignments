@@ -1,0 +1,60 @@
+Furkan Göksel
+2237436
+
+*****INTRODUCTION*****
+
+In this assignment, I implemented server and client programs in Python3. Their running style is the same as example in the homework text. So, in order to run server:
+
+--- python3 server.py <UDP listen port> <TCP listen port> (eg. python3 server.py 10000 11000)
+
+And for client:
+
+--- python3 client.py <server IP> <server UDP port> <server TCP port> <client UDP sender port> <client TCP sender port> (eg. python3 client.py 10.10.1.1 10000 11000 12000 13000)
+
+After running server and then client, firstly client sends UDP transfer file and after finishing the transfer, it closes the UDP socket and it starts
+to transfer another file over TCP. After the completion, both program terminates.
+
+******TIMESTAMP INFO****
+In order to measure transmission time, client sends measured epoch time with the data in both TCP and UDP. When server receives a successful packet, it takes current time epoch (I parsed it and its length is 17 with floating
+point), extracts the time information in the received packet, take difference of them and save it in an array. So, just before termination server prints these values as specified in assignment text.
+
+*******TCP implementation********
+As I said before, client sends timestamp and data information over TCP. I implemented server and client side code like in the lecture slides. One issue that I encountered while testing my TCP implementation
+is a stream socket recv case. Sometimes, in my code, recv doesn't take 1000 length data from socket. Same issue was reported in the following link: https://stackoverflow.com/questions/3189844/tcp-socket-file-transfer .
+I guess its reason is TCP uses stream rather than a message buffer (It doesn't guarantee structured receive). So, I solved this case with a loop. In this loop, server calls recv until receiving exactly 1000 bytes
+ (of course socket close case was considered and designed properly). Other than that, sending data over TCP was easy thanks to library functions.
+
+One last point about TCP sockets is sometimes after client program finishes, I couldn't restart it again immediately. Therefore in order to solve this problem I added following socket option.
+(reference: https://stackoverflow.com/questions/6380057/python-binding-socket-address-already-in-use):
+
+--- clientTCPSocket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
+
+(Packet Structure for TCP: |Timestamp (17 bytes)|Data (983 bytes)|)
+
+******UDP Implementation*********
+As RDT protocol I used mainly stop and wait protocol (in the lecture slides) with some simplifications according to given unreliable environment specifications. Since environment says that you should expect Packet Corruption,
+and Packet Delaying / Reordering,  there will be no need to use timeout mechanism because underlying channel can't lose packets. Therefore, FSM of my implementation is equal to rdt2.2 slide in lecture notes. As a summary,
+It uses ACK packets for both ACK and NACK using sequence numbers. There are three packet types which are DATA, ACK and FIN. DATA is a regular packet for file transmission, ACK for acknowledging DATA messages and they are sent from server
+, and FIN for finishing the communication.
+
+For the checksum of packages, I am using 64 bytes blake2b from hashlib module. Sequence number is just 1 and 0 in order to represent two different states. Timestamp information is mentioned above.
+
+One of the problem that I encountered was closing the connections. I had to close UDP transmission to switch TCP communication, and in order to achieve this, I decided to use FIN-ACK packet to inform server about client's
+situation. Flow is as follows:
+
+Client sends FIN --> Server receives FIN --> Server sends ACK --> Server closes socket --> Client receives ACK --> Client closes socket
+
+There is a fatal error here. What if last ACK is corrupted ? Client will send FIN packet again and waits ACK, but server has closed its socket already. In order to eliminate this case I gave a timeout period. If client
+can't receive this ACK packet in CLOSETIMEOUT (variable) seconds, it will close connection (because it assumes that client should have sent an ACK or NACK message about the package status but it didn't). I tested it
+with 3 seconds, and it seems that it is working.
+
+
+Another problem was switching UDP transmission to TCP transmission. If TCP server wasn't listening for incoming connections, trying to connect TCP server gave error and program terminated. In order to solve this case,
+I used try-except block within a loop so that client continuously tries to connect server without giving an error.
+
+
+(Packet Structure for UDP: |Hash Value (Checksum) (64 bytes)|Sequence Number (1 byte)|Packet Type (1 byte)|Timestamp (17 bytes)|Data (917 bytes)|)
+
+******COMMENTS*********
+First of all, I want to thank you for this homework because learning socket programming was one of my goals because we often need to use them in our personal projects. I learned different aspects, shortages and techniques
+in this homework both for TCP and UDP. Approximately, it took 2 days to complete it because of stupid encoding issues and bugs. Thanks for all extensions and replies for my questions.
